@@ -1,0 +1,13 @@
+[Unit]
+Description=Minecraft + Telegram bot
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u /root/shammat/shammat.py
+Restart=always
+RestartSec=1
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

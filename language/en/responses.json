@@ -1,0 +1,1871 @@
+{
+  "_readme": "Each entry has a game message (shown in Minecraft chat) and a tg message (sent to Telegram). The tg field is optional; if omitted, the game message is used. To add a line, provide the text fields and leave out 'used'. Telegram messages have been adapted to match the tone of in-game messages, with roast and mysterious-behavior categories included.",
+  "_placeholders": "{player} {killer} {count} {advancement} {seconds} {by} {hour}",
+  "categories": {
+    "death_generic": {
+      "description": "Any death that does not fit another category. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} died... again. What a surprise.",
+          "tg": "😂 {player} is back at spawn. Let's preserve their dignity and not ask why."
+        },
+        {
+          "game": "Press F to pay respects to {player}.",
+          "tg": "Everyone, {player} died. Raise your hand if you expected a different ending."
+        },
+        {
+          "game": "That's another death for {player}. Surely the game's fault.",
+          "tg": "{player} did it again. It's practically a server tradition now."
+        },
+        {
+          "game": "{player} has returned to spawn. We won't ask how.",
+          "tg": "🪦 A moment of silence for {player}'s loot, if there's any left."
+        },
+        {
+          "game": "A moment of silence for {player}'s gear—if any of it survived.",
+          "tg": "Is {player} okay? Never mind—are the items they dropped okay?"
+        },
+        {
+          "game": "Someone check on {player}... no, check their dropped items.",
+          "tg": "The important thing is that {player} is learning... in theory."
+        },
+        {
+          "game": "{player} is learning. Theoretically.",
+          "tg": "{player} disconnected from life before disconnecting from the server."
+        },
+        {
+          "game": "{player} logged out of life before the server.",
+          "tg": "😂 {player} is back at spawn. Let's preserve their dignity and not ask why."
+        },
+        {
+          "game": "Another flawless failure by {player}. Well played.",
+          "tg": "Everyone, {player} died. Raise your hand if you expected a different ending."
+        },
+        {
+          "game": "Who told {player} they had extra lives?",
+          "tg": "{player} did it again. It's practically a server tradition now."
+        },
+        {
+          "game": "{player} died... again. What a surprise.",
+          "tg": "🪦 A moment of silence for {player}'s loot, if there's any left."
+        },
+        {
+          "game": "Press F to pay respects to {player}.",
+          "tg": "Is {player} okay? Never mind—are the items they dropped okay?"
+        },
+        {
+          "game": "That's another death for {player}. Surely the game's fault.",
+          "tg": "The important thing is that {player} is learning... in theory."
+        },
+        {
+          "game": "{player} has returned to spawn. We won't ask how.",
+          "tg": "{player} disconnected from life before disconnecting from the server."
+        },
+        {
+          "game": "A moment of silence for {player}'s gear—if any of it survived.",
+          "tg": "😂 {player} is back at spawn. Let's preserve their dignity and not ask why."
+        },
+        {
+          "game": "Someone check on {player}... no, check their dropped items.",
+          "tg": "Everyone, {player} died. Raise your hand if you expected a different ending."
+        },
+        {
+          "game": "{player} is learning. Theoretically.",
+          "tg": "{player} did it again. It's practically a server tradition now."
+        },
+        {
+          "game": "{player} logged out of life before the server.",
+          "tg": "🪦 A moment of silence for {player}'s loot, if there's any left."
+        },
+        {
+          "game": "Another flawless failure by {player}. Well played.",
+          "tg": "Is {player} okay? Never mind—are the items they dropped okay?"
+        },
+        {
+          "game": "Who told {player} they had extra lives?",
+          "tg": "The important thing is that {player} is learning... in theory."
+        },
+        {
+          "game": "{player} died... again. What a surprise.",
+          "tg": "{player} disconnected from life before disconnecting from the server."
+        },
+        {
+          "game": "Press F to pay respects to {player}.",
+          "tg": "😂 {player} is back at spawn. Let's preserve their dignity and not ask why."
+        },
+        {
+          "game": "That's another death for {player}. Surely the game's fault.",
+          "tg": "Everyone, {player} died. Raise your hand if you expected a different ending."
+        },
+        {
+          "game": "{player} has returned to spawn. We won't ask how.",
+          "tg": "{player} did it again. It's practically a server tradition now."
+        },
+        {
+          "game": "A moment of silence for {player}'s gear—if any of it survived.",
+          "tg": "🪦 A moment of silence for {player}'s loot, if there's any left."
+        }
+      ]
+    },
+    "death_fall": {
+      "description": "Death caused by falling. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} learned about gravity the hard way.",
+          "tg": "📉 {player} took the shortcut straight back to spawn."
+        },
+        {
+          "game": "Gravity: 1. {player}: 0. No rematch needed.",
+          "tg": "Gravity wins again. The score is not looking good, {player}."
+        },
+        {
+          "game": "There were stairs, {player}. You just love shortcuts.",
+          "tg": "There were stairs, {player}, but apparently you prefer speedrunning."
+        },
+        {
+          "game": "{player} tried to fly. The landing was less successful.",
+          "tg": "😂 {player} hit the ground before the idea reached their brain."
+        },
+        {
+          "game": "The ground did not welcome {player} with open arms.",
+          "tg": "Please do not copy {player}; this experiment failed."
+        },
+        {
+          "game": "{player} said, 'I've got this'... turns out they didn't.",
+          "tg": "Great height, questionable landing.",
+          "used": true
+        },
+        {
+          "game": "A historic jump by {player}. Shame about the ending.",
+          "tg": "📉 {player} took the shortcut straight back to spawn."
+        },
+        {
+          "game": "{player} learned about gravity the hard way.",
+          "tg": "Gravity wins again. The score is not looking good, {player}."
+        },
+        {
+          "game": "Gravity: 1. {player}: 0. No rematch needed.",
+          "tg": "There were stairs, {player}, but apparently you prefer speedrunning."
+        },
+        {
+          "game": "There were stairs, {player}. You just love shortcuts.",
+          "tg": "😂 {player} hit the ground before the idea reached their brain."
+        },
+        {
+          "game": "{player} tried to fly. The landing was less successful.",
+          "tg": "Please do not copy {player}; this experiment failed."
+        },
+        {
+          "game": "The ground did not welcome {player} with open arms.",
+          "tg": "Great height, questionable landing."
+        },
+        {
+          "game": "{player} said, 'I've got this'... turns out they didn't.",
+          "tg": "📉 {player} took the shortcut straight back to spawn."
+        },
+        {
+          "game": "A historic jump by {player}. Shame about the ending.",
+          "tg": "Gravity wins again. The score is not looking good, {player}."
+        },
+        {
+          "game": "{player} learned about gravity the hard way.",
+          "tg": "There were stairs, {player}, but apparently you prefer speedrunning."
+        },
+        {
+          "game": "Gravity: 1. {player}: 0. No rematch needed.",
+          "tg": "😂 {player} hit the ground before the idea reached their brain."
+        },
+        {
+          "game": "There were stairs, {player}. You just love shortcuts.",
+          "tg": "Please do not copy {player}; this experiment failed."
+        },
+        {
+          "game": "{player} tried to fly. The landing was less successful.",
+          "tg": "Great height, questionable landing."
+        },
+        {
+          "game": "The ground did not welcome {player} with open arms.",
+          "tg": "📉 {player} took the shortcut straight back to spawn."
+        },
+        {
+          "game": "{player} said, 'I've got this'... turns out they didn't.",
+          "tg": "Gravity wins again. The score is not looking good, {player}."
+        },
+        {
+          "game": "A historic jump by {player}. Shame about the ending.",
+          "tg": "There were stairs, {player}, but apparently you prefer speedrunning."
+        }
+      ],
+      "last": "{player} said, 'I've got this'... turns out they didn't."
+    },
+    "death_lava": {
+      "description": "Death caused by lava. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} thought lava was a hot tub.",
+          "tg": "🌋 If you've got spare gear, don't store it the way {player} did."
+        },
+        {
+          "game": "{player} made a terrible deal and got burned.",
+          "tg": "{player} looked at the lava and said, 'Let me check for myself.'"
+        },
+        {
+          "game": "{player} saw lava and decided to test it personally.",
+          "tg": "The lava got its share, and spawn welcomed {player}."
+        },
+        {
+          "game": "Lava is not water, {player}!",
+          "tg": "There was a way around it... but where's the fun in that?"
+        },
+        {
+          "game": "{player} has been upgraded to hot dog.",
+          "tg": "Lava collected {player}'s items. No refunds or exchanges."
+        },
+        {
+          "game": "Not everything red is tea, {player}.",
+          "tg": "🌋 If you've got spare gear, don't store it the way {player} did."
+        },
+        {
+          "game": "Who told {player} this was a shortcut?",
+          "tg": "{player} looked at the lava and said, 'Let me check for myself.'"
+        },
+        {
+          "game": "{player} thought lava was a hot tub.",
+          "tg": "The lava got its share, and spawn welcomed {player}."
+        },
+        {
+          "game": "{player} made a terrible deal and got burned.",
+          "tg": "There was a way around it... but where's the fun in that?"
+        },
+        {
+          "game": "{player} saw lava and decided to test it personally.",
+          "tg": "Lava collected {player}'s items. No refunds or exchanges."
+        },
+        {
+          "game": "Lava is not water, {player}!",
+          "tg": "🌋 If you've got spare gear, don't store it the way {player} did."
+        },
+        {
+          "game": "{player} has been upgraded to hot dog.",
+          "tg": "{player} looked at the lava and said, 'Let me check for myself.'"
+        },
+        {
+          "game": "Not everything red is tea, {player}.",
+          "tg": "The lava got its share, and spawn welcomed {player}."
+        },
+        {
+          "game": "Who told {player} this was a shortcut?",
+          "tg": "There was a way around it... but where's the fun in that?"
+        },
+        {
+          "game": "{player} thought lava was a hot tub.",
+          "tg": "Lava collected {player}'s items. No refunds or exchanges."
+        }
+      ]
+    },
+    "death_fire": {
+      "description": "Death caused by fire or burning. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} got a little too well-done.",
+          "tg": "🔥 {player} came out of that experience extra crispy.",
+          "used": true
+        },
+        {
+          "game": "{player} is fully cooked.",
+          "tg": "If you see smoke, don't panic—it's probably just {player}.",
+          "used": true
+        },
+        {
+          "game": "Everything's fine... except {player} is on fire.",
+          "tg": "Please don't ask {player} for grilling tips.",
+          "used": true
+        },
+        {
+          "game": "Poor {player}, literally on fire.",
+          "tg": "{player} learned that fire isn't a beauty filter.",
+          "used": true
+        },
+        {
+          "game": "{player} has become a barbecue special.",
+          "tg": "The armor was there, right? Never mind—the result speaks for itself.",
+          "used": true
+        },
+        {
+          "game": "Next time, {player}, stop, drop, and roll.",
+          "tg": "🔥 {player} came out of that experience extra crispy.",
+          "used": true
+        },
+        {
+          "game": "Today's barbecue is sponsored by {player}.",
+          "tg": "If you see smoke, don't panic—it's probably just {player}.",
+          "used": true
+        },
+        {
+          "game": "{player} got a little too well-done.",
+          "tg": "Please don't ask {player} for grilling tips."
+        },
+        {
+          "game": "{player} is fully cooked.",
+          "tg": "{player} learned that fire isn't a beauty filter.",
+          "used": true
+        },
+        {
+          "game": "Everything's fine... except {player} is on fire.",
+          "tg": "The armor was there, right? Never mind—the result speaks for itself.",
+          "used": true
+        },
+        {
+          "game": "Poor {player}, literally on fire.",
+          "tg": "🔥 {player} came out of that experience extra crispy."
+        },
+        {
+          "game": "{player} has become a barbecue special.",
+          "tg": "If you see smoke, don't panic—it's probably just {player}.",
+          "used": true
+        },
+        {
+          "game": "Next time, {player}, stop, drop, and roll.",
+          "tg": "Please don't ask {player} for grilling tips.",
+          "used": true
+        },
+        {
+          "game": "Today's barbecue is sponsored by {player}.",
+          "tg": "{player} learned that fire isn't a beauty filter."
+        },
+        {
+          "game": "{player} got a little too well-done.",
+          "tg": "The armor was there, right? Never mind—the result speaks for itself.",
+          "used": true
+        }
+      ],
+      "last": "Today's barbecue is sponsored by {player}."
+    },
+    "death_drown": {
+      "description": "Death by drowning. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} forgot how to swim.",
+          "tg": "🌊 {player} lost an argument with water."
+        },
+        {
+          "game": "{player} is going to sleep with the fishes.",
+          "tg": "Someone remind {player} that breathing is not an optional feature."
+        },
+        {
+          "game": "Someone remind {player} that breathing is not optional.",
+          "tg": "The ocean returned {player} without a five-star review.",
+          "used": true
+        },
+        {
+          "game": "The water won. Press F for {player}.",
+          "tg": "Don't send a rescue boat—the spawn point is closer."
+        },
+        {
+          "game": "Poor {player} was only thirsty.",
+          "tg": "{player} was close to land. The word 'close' is relative."
+        },
+        {
+          "game": "{player} tried breathing underwater. Successful failure.",
+          "tg": "🌊 {player} lost an argument with water.",
+          "used": true
+        },
+        {
+          "game": "The shore was closer than that decision, {player}.",
+          "tg": "Someone remind {player} that breathing is not an optional feature."
+        },
+        {
+          "game": "{player} forgot how to swim.",
+          "tg": "The ocean returned {player} without a five-star review."
+        },
+        {
+          "game": "{player} is going to sleep with the fishes.",
+          "tg": "Don't send a rescue boat—the spawn point is closer."
+        },
+        {
+          "game": "Someone remind {player} that breathing is not optional.",
+          "tg": "{player} was close to land. The word 'close' is relative."
+        },
+        {
+          "game": "The water won. Press F for {player}.",
+          "tg": "🌊 {player} lost an argument with water."
+        },
+        {
+          "game": "Poor {player} was only thirsty.",
+          "tg": "Someone remind {player} that breathing is not an optional feature."
+        },
+        {
+          "game": "{player} tried breathing underwater. Successful failure.",
+          "tg": "The ocean returned {player} without a five-star review."
+        },
+        {
+          "game": "The shore was closer than that decision, {player}.",
+          "tg": "Don't send a rescue boat—the spawn point is closer."
+        },
+        {
+          "game": "{player} forgot how to swim.",
+          "tg": "{player} was close to land. The word 'close' is relative."
+        }
+      ],
+      "last": "{player} tried breathing underwater. Successful failure."
+    },
+    "death_explosion": {
+      "description": "Creeper or TNT explosion. {player} {killer} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} got a very explosive hug from a creeper.",
+          "tg": "💥 The creeper wrapped up the meeting quickly, and {player} was the agenda."
+        },
+        {
+          "game": "Well, {player} did it again!",
+          "tg": "There's some new landscaping in that crater. Thanks, {player}."
+        },
+        {
+          "game": "{player} went boom... and that was that.",
+          "tg": "Loud sound, bigger consequences. Tough luck, {player}."
+        },
+        {
+          "game": "The creeper only wanted a hug, {player}.",
+          "tg": "If anyone asks who made that crater, we saw nothing."
+        },
+        {
+          "game": "Sssss... {player} noticed the sound too late.",
+          "tg": "{player} got so close to the creeper they became friends... for one second."
+        },
+        {
+          "game": "{player} has been removed from the server. Thanks, creeper.",
+          "tg": "💥 The creeper wrapped up the meeting quickly, and {player} was the agenda."
+        },
+        {
+          "game": "Another death for {player}. BOOM.",
+          "tg": "There's some new landscaping in that crater. Thanks, {player}."
+        },
+        {
+          "game": "{player} got a very explosive hug from a creeper.",
+          "tg": "Loud sound, bigger consequences. Tough luck, {player}."
+        },
+        {
+          "game": "Well, {player} did it again!",
+          "tg": "If anyone asks who made that crater, we saw nothing."
+        },
+        {
+          "game": "{player} went boom... and that was that.",
+          "tg": "{player} got so close to the creeper they became friends... for one second."
+        },
+        {
+          "game": "The creeper only wanted a hug, {player}.",
+          "tg": "💥 The creeper wrapped up the meeting quickly, and {player} was the agenda.",
+          "used": true
+        },
+        {
+          "game": "Sssss... {player} noticed the sound too late.",
+          "tg": "There's some new landscaping in that crater. Thanks, {player}."
+        },
+        {
+          "game": "{player} has been removed from the server. Thanks, creeper.",
+          "tg": "Loud sound, bigger consequences. Tough luck, {player}.",
+          "used": true
+        },
+        {
+          "game": "Another death for {player}. BOOM.",
+          "tg": "If anyone asks who made that crater, we saw nothing."
+        },
+        {
+          "game": "{player} got a very explosive hug from a creeper.",
+          "tg": "{player} got so close to the creeper they became friends... for one second."
+        }
+      ],
+      "last": "Well, that turned into a fireworks show."
+    },
+    "death_mob": {
+      "description": "Death caused by a hostile mob. {player} {killer} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} lost a fight with {killer}.",
+          "tg": "{killer} won the round; {player} took the road to spawn.",
+          "used": true
+        },
+        {
+          "game": "{player} was defeated by {killer}. Embarrassing.",
+          "tg": "😂 {player} entered confidently and left with theoretical experience.",
+          "used": true
+        },
+        {
+          "game": "Score: {killer} 1, {player} 0. Training recommended.",
+          "tg": "{killer} isn't even a final boss, but {player} made them look like one.",
+          "used": true
+        },
+        {
+          "game": "{killer} cooked {player} thoroughly.",
+          "tg": "The fight was short. The performance review will be shorter.",
+          "used": true
+        },
+        {
+          "game": "Poor {player}; {killer} wasn't even trying.",
+          "tg": "{player}, if you want revenge, bring food this time."
+        },
+        {
+          "game": "Hey {player}, {killer} is not your sparring buddy.",
+          "tg": "{killer} won the round; {player} took the road to spawn.",
+          "used": true
+        },
+        {
+          "game": "Even {killer} can't believe they won against {player}.",
+          "tg": "😂 {player} entered confidently and left with theoretical experience.",
+          "used": true
+        },
+        {
+          "game": "{player} lost a fight with {killer}.",
+          "tg": "{killer} isn't even a final boss, but {player} made them look like one.",
+          "used": true
+        },
+        {
+          "game": "{player} was defeated by {killer}. Embarrassing.",
+          "tg": "The fight was short. The performance review will be shorter.",
+          "used": true
+        },
+        {
+          "game": "Score: {killer} 1, {player} 0. Training recommended.",
+          "tg": "{player}, if you want revenge, bring food this time."
+        },
+        {
+          "game": "{killer} cooked {player} thoroughly.",
+          "tg": "{killer} won the round; {player} took the road to spawn.",
+          "used": true
+        },
+        {
+          "game": "Poor {player}; {killer} wasn't even trying.",
+          "tg": "😂 {player} entered confidently and left with theoretical experience.",
+          "used": true
+        },
+        {
+          "game": "Hey {player}, {killer} is not your sparring buddy.",
+          "tg": "{killer} isn't even a final boss, but {player} made them look like one.",
+          "used": true
+        },
+        {
+          "game": "Even {killer} can't believe they won against {player}.",
+          "tg": "The fight was short. The performance review will be shorter.",
+          "used": true
+        },
+        {
+          "game": "{player} lost a fight with {killer}.",
+          "tg": "{player}, if you want revenge, bring food this time.",
+          "used": true
+        },
+        {
+          "game": "{player} was defeated by {killer}. Embarrassing.",
+          "tg": "{killer} won the round; {player} took the road to spawn.",
+          "used": true
+        },
+        {
+          "game": "Score: {killer} 1, {player} 0. Training recommended.",
+          "tg": "😂 {player} entered confidently and left with theoretical experience."
+        },
+        {
+          "game": "{killer} cooked {player} thoroughly.",
+          "tg": "{killer} isn't even a final boss, but {player} made them look like one.",
+          "used": true
+        },
+        {
+          "game": "Poor {player}; {killer} wasn't even trying.",
+          "tg": "The fight was short. The performance review will be shorter.",
+          "used": true
+        }
+      ],
+      "last": "Hey {player}, {killer} is not your sparring buddy."
+    },
+    "death_pvp": {
+      "description": "Death caused by another player. {player} {killer} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{killer} sent {player} back to spawn.",
+          "tg": "⚔️ {killer} sent {player} back to spawn. It's personal now."
+        },
+        {
+          "game": "{killer} sent {player} back to spawn with ease.",
+          "tg": "Don't try to make peace yet—let {player} process that loss 😂"
+        },
+        {
+          "game": "{killer} said 'I'm going' and took {player} along.",
+          "tg": "Did {killer} take the loot? Consider it tuition."
+        },
+        {
+          "game": "Press F for {player}, and thanks to {killer} for the service.",
+          "tg": "{player}'s dignity disappeared with that final hit."
+        },
+        {
+          "game": "{killer} showed {player} no mercy.",
+          "tg": "Who said {player} was unbeatable? We need to revisit that claim."
+        },
+        {
+          "game": "Friendship with {player} ended; {killer} is the new best friend.",
+          "tg": "⚔️ {killer} sent {player} back to spawn. It's personal now."
+        },
+        {
+          "game": "{player} walked in confident and left empty-handed.",
+          "tg": "Don't try to make peace yet—let {player} process that loss 😂"
+        },
+        {
+          "game": "{killer} sent {player} back to spawn.",
+          "tg": "Did {killer} take the loot? Consider it tuition."
+        },
+        {
+          "game": "{killer} sent {player} back to spawn with ease.",
+          "tg": "{player}'s dignity disappeared with that final hit."
+        },
+        {
+          "game": "{killer} said 'I'm going' and took {player} along.",
+          "tg": "Who said {player} was unbeatable? We need to revisit that claim."
+        },
+        {
+          "game": "Press F for {player}, and thanks to {killer} for the service.",
+          "tg": "⚔️ {killer} sent {player} back to spawn. It's personal now."
+        },
+        {
+          "game": "{killer} showed {player} no mercy.",
+          "tg": "Don't try to make peace yet—let {player} process that loss 😂"
+        },
+        {
+          "game": "Friendship with {player} ended; {killer} is the new best friend.",
+          "tg": "Did {killer} take the loot? Consider it tuition."
+        },
+        {
+          "game": "{player} walked in confident and left empty-handed.",
+          "tg": "{player}'s dignity disappeared with that final hit."
+        },
+        {
+          "game": "{killer} sent {player} back to spawn.",
+          "tg": "Who said {player} was unbeatable? We need to revisit that claim."
+        },
+        {
+          "game": "{killer} sent {player} back to spawn with ease.",
+          "tg": "⚔️ {killer} sent {player} back to spawn. It's personal now."
+        },
+        {
+          "game": "{killer} said 'I'm going' and took {player} along.",
+          "tg": "Don't try to make peace yet—let {player} process that loss 😂"
+        },
+        {
+          "game": "Press F for {player}, and thanks to {killer} for the service.",
+          "tg": "Did {killer} take the loot? Consider it tuition."
+        },
+        {
+          "game": "{killer} showed {player} no mercy.",
+          "tg": "{player}'s dignity disappeared with that final hit."
+        }
+      ]
+    },
+    "death_void": {
+      "description": "Death from falling into the void. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} went beyond the world's borders. Quite an achievement.",
+          "tg": "{player} went beyond the world border—there's literally no ground for debate."
+        },
+        {
+          "game": "{player} left the chat... forever.",
+          "tg": "If {player} comes back, don't ask what was down there."
+        },
+        {
+          "game": "Luck wasn't on your side, {player}. You fell into the void.",
+          "tg": "The void won this round. Nothing left to collect?"
+        },
+        {
+          "game": "There's nothing down there to look for, {player}.",
+          "tg": "{player} tried a shortcut off the map. Not recommended."
+        },
+        {
+          "game": "{player} reached the end of the world.",
+          "tg": "Anything lost to the void is now an official donation."
+        },
+        {
+          "game": "Why were you looking down there, {player}?",
+          "tg": "{player} went beyond the world border—there's literally no ground for debate."
+        },
+        {
+          "game": "No floor, no rescue, and no need to try again.",
+          "tg": "If {player} comes back, don't ask what was down there."
+        },
+        {
+          "game": "{player} went beyond the world's borders. Quite an achievement.",
+          "tg": "The void won this round. Nothing left to collect?"
+        },
+        {
+          "game": "{player} left the chat... forever.",
+          "tg": "{player} tried a shortcut off the map. Not recommended."
+        },
+        {
+          "game": "Luck wasn't on your side, {player}. You fell into the void.",
+          "tg": "Anything lost to the void is now an official donation."
+        },
+        {
+          "game": "There's nothing down there to look for, {player}.",
+          "tg": "{player} went beyond the world border—there's literally no ground for debate."
+        },
+        {
+          "game": "{player} reached the end of the world.",
+          "tg": "If {player} comes back, don't ask what was down there."
+        },
+        {
+          "game": "Why were you looking down there, {player}?",
+          "tg": "The void won this round. Nothing left to collect?"
+        },
+        {
+          "game": "No floor, no rescue, and no need to try again.",
+          "tg": "{player} tried a shortcut off the map. Not recommended."
+        },
+        {
+          "game": "{player} went beyond the world's borders. Quite an achievement.",
+          "tg": "Anything lost to the void is now an official donation."
+        }
+      ]
+    },
+    "death_starve": {
+      "description": "Death by starvation. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} forgot to eat.",
+          "tg": "🍞 {player} lost to an enemy that a sandwich could have defeated."
+        },
+        {
+          "game": "{player} starved with food in the chest right next to them!",
+          "tg": "There's food in the chests, everyone—just apparently not the right chest."
+        },
+        {
+          "game": "Poor {player}; nobody brought them a sandwich.",
+          "tg": "{player} proved hunger is stronger than all that gear."
+        },
+        {
+          "game": "That hunger bar isn't decoration, {player}!",
+          "tg": "Put a sign at home: 'Eat before you leave.'"
+        },
+        {
+          "game": "Go eat something, {player}.",
+          "tg": "Next time, bring bread instead of all that confidence, {player}."
+        },
+        {
+          "game": "{player} starved. Someone call their mum.",
+          "tg": "🍞 {player} lost to an enemy that a sandwich could have defeated."
+        },
+        {
+          "game": "A single carrot could have saved you, {player}.",
+          "tg": "There's food in the chests, everyone—just apparently not the right chest."
+        },
+        {
+          "game": "{player} forgot to eat.",
+          "tg": "{player} proved hunger is stronger than all that gear."
+        },
+        {
+          "game": "{player} starved with food in the chest right next to them!",
+          "tg": "Put a sign at home: 'Eat before you leave.'"
+        },
+        {
+          "game": "Poor {player}; nobody brought them a sandwich.",
+          "tg": "Next time, bring bread instead of all that confidence, {player}."
+        },
+        {
+          "game": "That hunger bar isn't decoration, {player}!",
+          "tg": "🍞 {player} lost to an enemy that a sandwich could have defeated."
+        },
+        {
+          "game": "Go eat something, {player}.",
+          "tg": "There's food in the chests, everyone—just apparently not the right chest."
+        },
+        {
+          "game": "{player} starved. Someone call their mum.",
+          "tg": "{player} proved hunger is stronger than all that gear."
+        },
+        {
+          "game": "A single carrot could have saved you, {player}.",
+          "tg": "Put a sign at home: 'Eat before you leave.'"
+        },
+        {
+          "game": "{player} forgot to eat.",
+          "tg": "Next time, bring bread instead of all that confidence, {player}."
+        }
+      ]
+    },
+    "join": {
+      "description": "A player joined the server. {player}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "Welcome, {player}!",
+          "tg": "{player} is here. Now the chaos can officially begin 😅",
+          "used": true
+        },
+        {
+          "game": "{player} has joined the chat.",
+          "tg": "Welcome, {player}. Everything was peaceful a moment ago, just for the record.",
+          "used": true
+        },
+        {
+          "game": "Welcome, {player}! Let's see what you've got.",
+          "tg": "{player} joined. Hide the unfinished projects.",
+          "used": true
+        },
+        {
+          "game": "Look who finally woke up! Hey, {player}.",
+          "tg": "Great to have you, {player}—don't ask where your items went last time.",
+          "used": true
+        },
+        {
+          "game": "This is a Minecraft server, {player}. Welcome!",
+          "tg": "Who will explain the latest disaster to {player}?",
+          "used": true
+        },
+        {
+          "game": "{player} appeared out of nowhere like a Pokémon!",
+          "tg": "Welcome back, {player}. Please try not to die in the first minute.",
+          "used": true
+        },
+        {
+          "game": "Make yourself at home, {player}.",
+          "tg": "{player} is here. Now the chaos can officially begin 😅"
+        },
+        {
+          "game": "The genius {player} has arrived. Oh dear.",
+          "tg": "Welcome, {player}. Everything was peaceful a moment ago, just for the record."
+        },
+        {
+          "game": "Welcome, {player}!",
+          "tg": "{player} joined. Hide the unfinished projects.",
+          "used": true
+        },
+        {
+          "game": "{player} has joined the chat.",
+          "tg": "Great to have you, {player}—don't ask where your items went last time.",
+          "used": true
+        },
+        {
+          "game": "Welcome, {player}! Let's see what you've got.",
+          "tg": "Who will explain the latest disaster to {player}?"
+        },
+        {
+          "game": "Look who finally woke up! Hey, {player}.",
+          "tg": "Welcome back, {player}. Please try not to die in the first minute.",
+          "used": true
+        },
+        {
+          "game": "This is a Minecraft server, {player}. Welcome!",
+          "tg": "{player} is here. Now the chaos can officially begin 😅"
+        },
+        {
+          "game": "{player} appeared out of nowhere like a Pokémon!",
+          "tg": "Welcome, {player}. Everything was peaceful a moment ago, just for the record.",
+          "used": true
+        },
+        {
+          "game": "Make yourself at home, {player}.",
+          "tg": "{player} joined. Hide the unfinished projects.",
+          "used": true
+        },
+        {
+          "game": "The genius {player} has arrived. Oh dear.",
+          "tg": "Great to have you, {player}—don't ask where your items went last time.",
+          "used": true
+        },
+        {
+          "game": "Welcome, {player}!",
+          "tg": "Who will explain the latest disaster to {player}?",
+          "used": true
+        },
+        {
+          "game": "{player} has joined the chat.",
+          "tg": "Welcome back, {player}. Please try not to die in the first minute.",
+          "used": true
+        }
+      ],
+      "last": "Welcome, {player}! Great to have you—please don't break anything."
+    },
+    "leave": {
+      "description": "A player left the server (Telegram only). {player}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} left.",
+          "tg": "{player} bailed. If anything happens now, we were all AFK.",
+          "used": true
+        },
+        {
+          "game": "{player} said, 'I'm out.'",
+          "tg": "Goodbye, {player}. Don't forget your scattered items—if you remember where they are.",
+          "used": true
+        },
+        {
+          "game": "{player} left the chat.",
+          "tg": "{player} left the server, and peace has returned for an unknown duration.",
+          "used": true
+        },
+        {
+          "game": "{player} probably got mad and left.",
+          "tg": "Someone record {player}'s departure time. It might be a new achievement.",
+          "used": true
+        },
+        {
+          "game": "Bye, {player}.",
+          "tg": "If the base explodes, remember: {player} wasn't here.",
+          "used": true
+        },
+        {
+          "game": "{player} went to see the sun for a while.",
+          "tg": "{player} bailed. If anything happens now, we were all AFK.",
+          "used": true
+        },
+        {
+          "game": "That's enough for {player} today.",
+          "tg": "Goodbye, {player}. Don't forget your scattered items—if you remember where they are."
+        },
+        {
+          "game": "{player} left without saying goodbye.",
+          "tg": "{player} left the server, and peace has returned for an unknown duration.",
+          "used": true
+        },
+        {
+          "game": "{player} left.",
+          "tg": "Someone record {player}'s departure time. It might be a new achievement.",
+          "used": true
+        },
+        {
+          "game": "{player} said, 'I'm out.'",
+          "tg": "If the base explodes, remember: {player} wasn't here.",
+          "used": true
+        },
+        {
+          "game": "{player} left the chat.",
+          "tg": "{player} bailed. If anything happens now, we were all AFK.",
+          "used": true
+        },
+        {
+          "game": "{player} probably got mad and left.",
+          "tg": "Goodbye, {player}. Don't forget your scattered items—if you remember where they are.",
+          "used": true
+        },
+        {
+          "game": "Bye, {player}.",
+          "tg": "{player} left the server, and peace has returned for an unknown duration.",
+          "used": true
+        },
+        {
+          "game": "{player} went to see the sun for a while.",
+          "tg": "Someone record {player}'s departure time. It might be a new achievement.",
+          "used": true
+        },
+        {
+          "game": "That's enough for {player} today.",
+          "tg": "If the base explodes, remember: {player} wasn't here.",
+          "used": true
+        }
+      ],
+      "last": "{player} left. If the base explodes, remember they weren't here."
+    },
+    "advancement": {
+      "description": "A player earned an advancement. {player} {advancement}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} earned [{advancement}]. Showing off, are we?",
+          "tg": "👏 {player} unlocked [{advancement}]. Don't get too proud; there's still work to do.",
+          "used": true
+        },
+        {
+          "game": "The legendary {player} unlocked [{advancement}].",
+          "tg": "Everyone, [{advancement}] belongs to {player}. Record this rare moment 😂",
+          "used": true
+        },
+        {
+          "game": "{player} unlocked [{advancement}]. Not bad.",
+          "tg": "{player} got [{advancement}]... finally, some good news.",
+          "used": true
+        },
+        {
+          "game": "Nice one, {player}! You earned [{advancement}].",
+          "tg": "Congratulations on [{advancement}], {player}. Now you can lecture us again.",
+          "used": true
+        },
+        {
+          "game": "Let's go, {player}! You completed [{advancement}].",
+          "tg": "New advancement for {player}: [{advancement}]. Applause is optional.",
+          "used": true
+        },
+        {
+          "game": "New advancement: [{advancement}]! Proud of you, {player}.",
+          "tg": "👏 {player} unlocked [{advancement}]. Don't get too proud; there's still work to do.",
+          "used": true
+        },
+        {
+          "game": "Everyone clap—{player} unlocked [{advancement}]!",
+          "tg": "Everyone, [{advancement}] belongs to {player}. Record this rare moment 😂"
+        },
+        {
+          "game": "{player} earned [{advancement}]. Showing off, are we?",
+          "tg": "{player} got [{advancement}]... finally, some good news.",
+          "used": true
+        },
+        {
+          "game": "The legendary {player} unlocked [{advancement}].",
+          "tg": "Congratulations on [{advancement}], {player}. Now you can lecture us again.",
+          "used": true
+        },
+        {
+          "game": "{player} unlocked [{advancement}]. Not bad.",
+          "tg": "New advancement for {player}: [{advancement}]. Applause is optional.",
+          "used": true
+        },
+        {
+          "game": "Nice one, {player}! You earned [{advancement}].",
+          "tg": "👏 {player} unlocked [{advancement}]. Don't get too proud; there's still work to do.",
+          "used": true
+        },
+        {
+          "game": "Let's go, {player}! You completed [{advancement}].",
+          "tg": "Everyone, [{advancement}] belongs to {player}. Record this rare moment 😂"
+        },
+        {
+          "game": "New advancement: [{advancement}]! Proud of you, {player}.",
+          "tg": "{player} got [{advancement}]... finally, some good news.",
+          "used": true
+        },
+        {
+          "game": "Everyone clap—{player} unlocked [{advancement}]!",
+          "tg": "Congratulations on [{advancement}], {player}. Now you can lecture us again.",
+          "used": true
+        },
+        {
+          "game": "{player} earned [{advancement}]. Showing off, are we?",
+          "tg": "New advancement for {player}: [{advancement}]. Applause is optional.",
+          "used": true
+        }
+      ],
+      "last": "[{advancement}]? Nice one, {player}. Keep going."
+    },
+    "server_empty": {
+      "description": "The last player left (Telegram only).",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "The server is empty.",
+          "tg": "The server is empty. Whoever left the oven on is responsible."
+        },
+        {
+          "game": "Nobody's around anymore...",
+          "tg": "No players online. Perfect time to inspect the mess everyone left behind.",
+          "used": true
+        },
+        {
+          "game": "It's suspiciously quiet.",
+          "tg": "Even the creepers have taken a break.",
+          "used": true
+        },
+        {
+          "game": "The server is empty.",
+          "tg": "The server is empty. Whoever left the oven on is responsible.",
+          "used": true
+        },
+        {
+          "game": "Nobody's around anymore...",
+          "tg": "No players online. Perfect time to inspect the mess everyone left behind.",
+          "used": true
+        },
+        {
+          "game": "It's suspiciously quiet.",
+          "tg": "Even the creepers have taken a break.",
+          "used": true
+        },
+        {
+          "game": "The server is empty.",
+          "tg": "The server is empty. Whoever left the oven on is responsible."
+        },
+        {
+          "game": "Nobody's around anymore...",
+          "tg": "No players online. Perfect time to inspect the mess everyone left behind."
+        },
+        {
+          "game": "It's suspiciously quiet.",
+          "tg": "Even the creepers have taken a break.",
+          "used": true
+        },
+        {
+          "game": "The server is empty.",
+          "tg": "The server is empty. Whoever left the oven on is responsible.",
+          "used": true
+        },
+        {
+          "game": "Nobody's around anymore...",
+          "tg": "No players online. Perfect time to inspect the mess everyone left behind."
+        },
+        {
+          "game": "It's suspiciously quiet.",
+          "tg": "Even the creepers have taken a break."
+        }
+      ],
+      "last": "Where did everyone go? Is today a public holiday?"
+    },
+    "server_ready": {
+      "description": "The server has finished starting up (Telegram only).",
+      "available_value": true,
+      "lines": [
+        {
+          "game": "The server is ready.",
+          "tg": "The server has finished starting up. Come on in!",
+          "used": false
+        },
+        {
+          "game": "Server startup complete.",
+          "tg": "Server is up and running.",
+          "used": true
+        },
+        {
+          "game": "The server is ready.",
+          "tg": "The server has finished starting up. Come on in!",
+          "used": false
+        },
+        {
+          "game": "Server startup complete.",
+          "tg": "Server is up and running.",
+          "used": false
+        },
+        {
+          "game": "The server is ready.",
+          "tg": "The server has finished starting up. Come on in!"
+        },
+        {
+          "game": "Server startup complete.",
+          "tg": "Server is up and running.",
+          "used": false
+        },
+        {
+          "game": "The server is ready.",
+          "tg": "The server has finished starting up. Come on in!"
+        },
+        {
+          "game": "Server startup complete.",
+          "tg": "Server is up and running.",
+          "used": false
+        },
+        {
+          "game": "The server is ready.",
+          "tg": "The server has finished starting up. Come on in!"
+        },
+        {
+          "game": "Server startup complete.",
+          "tg": "Server is up and running."
+        },
+        {
+          "game": "The server is ready.",
+          "tg": "The server has finished starting up. Come on in!"
+        },
+        {
+          "game": "Server startup complete.",
+          "tg": "Server is up and running."
+        }
+      ],
+      "last": "We're ready to play. Come on in!"
+    },
+    "roast": {
+      "description": "Roast a randomly selected online player. {player} {by}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}.",
+          "used": true
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not.",
+          "used": true
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions.",
+          "used": true
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not."
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}.",
+          "used": true
+        },
+        {
+          "game": "{player}, your gameplay needs a software update.",
+          "tg": "{player}, we believe in you. The server logs do not.",
+          "used": true
+        },
+        {
+          "game": "{player} is proof that confidence and skill are different things.",
+          "tg": "Today's roast: {player}, powered by questionable decisions."
+        },
+        {
+          "game": "Hey {player}, even your shadow is disappointed.",
+          "tg": "A friendly roast for {player}, courtesy of {by}."
+        }
+      ],
+      "last": "{player}, don't explain your strategy. Keep it a mystery—even to yourself."
+    },
+    "backup_countdown": {
+      "description": "A backup was requested and the countdown has started. {player} {seconds}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "Backup countdown started: {seconds} seconds remaining.",
+          "tg": "💾 {player} requested a backup. Countdown: {seconds} seconds.",
+          "used": true
+        },
+        {
+          "game": "{player} requested a backup. Prepare to save!",
+          "tg": "Backup preparation is underway. Requested by {player}.",
+          "used": true
+        },
+        {
+          "game": "Backup countdown started: {seconds} seconds remaining.",
+          "tg": "💾 {player} requested a backup. Countdown: {seconds} seconds.",
+          "used": true
+        },
+        {
+          "game": "{player} requested a backup. Prepare to save!",
+          "tg": "Backup preparation is underway. Requested by {player}.",
+          "used": true
+        },
+        {
+          "game": "Backup countdown started: {seconds} seconds remaining.",
+          "tg": "💾 {player} requested a backup. Countdown: {seconds} seconds.",
+          "used": true
+        },
+        {
+          "game": "{player} requested a backup. Prepare to save!",
+          "tg": "Backup preparation is underway. Requested by {player}."
+        },
+        {
+          "game": "Backup countdown started: {seconds} seconds remaining.",
+          "tg": "💾 {player} requested a backup. Countdown: {seconds} seconds."
+        },
+        {
+          "game": "{player} requested a backup. Prepare to save!",
+          "tg": "Backup preparation is underway. Requested by {player}."
+        }
+      ],
+      "last": "Backup in {seconds} seconds, requested by {player}. Type !cancel to cancel."
+    },
+    "backup_cancelled": {
+      "description": "The backup countdown was cancelled. {player} cancelled it.",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} cancelled the backup countdown.",
+          "tg": "🛑 {player} cancelled the backup countdown.",
+          "used": true
+        },
+        {
+          "game": "Backup cancelled by {player}.",
+          "tg": "The backup countdown has been cancelled by {player}."
+        },
+        {
+          "game": "{player} cancelled the backup countdown.",
+          "tg": "🛑 {player} cancelled the backup countdown."
+        },
+        {
+          "game": "Backup cancelled by {player}.",
+          "tg": "The backup countdown has been cancelled by {player}.",
+          "used": true
+        },
+        {
+          "game": "{player} cancelled the backup countdown.",
+          "tg": "🛑 {player} cancelled the backup countdown."
+        },
+        {
+          "game": "Backup cancelled by {player}.",
+          "tg": "The backup countdown has been cancelled by {player}."
+        },
+        {
+          "game": "{player} cancelled the backup countdown.",
+          "tg": "🛑 {player} cancelled the backup countdown."
+        },
+        {
+          "game": "Backup cancelled by {player}.",
+          "tg": "The backup countdown has been cancelled by {player}.",
+          "used": true
+        }
+      ],
+      "last": "{player} backed out. The one decision today we can't criticize."
+    },
+    "backup_start": {
+      "description": "The countdown finished and the server is shutting down. {player}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "Backup countdown complete. Server shutting down.",
+          "tg": "📦 The countdown is over. The server is shutting down for a backup."
+        },
+        {
+          "game": "{player} started the backup shutdown.",
+          "tg": "Backup shutdown initiated by {player}."
+        },
+        {
+          "game": "Backup countdown complete. Server shutting down.",
+          "tg": "📦 The countdown is over. The server is shutting down for a backup."
+        },
+        {
+          "game": "{player} started the backup shutdown.",
+          "tg": "Backup shutdown initiated by {player}."
+        },
+        {
+          "game": "Backup countdown complete. Server shutting down.",
+          "tg": "📦 The countdown is over. The server is shutting down for a backup."
+        },
+        {
+          "game": "{player} started the backup shutdown.",
+          "tg": "Backup shutdown initiated by {player}."
+        },
+        {
+          "game": "Backup countdown complete. Server shutting down.",
+          "tg": "📦 The countdown is over. The server is shutting down for a backup.",
+          "used": true
+        }
+      ],
+      "last": "Saving the world. Try not to break anything while it saves—I know, a tough ask."
+    },
+    "backup_denied": {
+      "description": "The player is not allowed to request a backup. {player}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        },
+        {
+          "game": "{player} is not allowed to request backups.",
+          "tg": "🔒 {player} tried to request a backup, but only admins can do that."
+        }
+      ]
+    },
+    "backup_busy": {
+      "description": "A backup is already running. {player}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        },
+        {
+          "game": "A backup is already running; {player}, please wait.",
+          "tg": "⏳ A backup is already in progress. Request from {player} ignored."
+        }
+      ]
+    },
+    "bot_roast": {
+      "description": "A random roast from the bot aimed at a player. {player} {by}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        },
+        {
+          "game": "{player}, your strategy is a mystery even to you.",
+          "tg": "🔥 {by} has a roast for {player}."
+        },
+        {
+          "game": "{player} plays like the tutorial was skipped.",
+          "tg": "The bot has reviewed {player}'s gameplay. It has questions."
+        }
+      ]
+    },
+    "bot_self_roast": {
+      "description": "The bot roasts itself to give it some personality.",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "Even I make questionable decisions sometimes.",
+          "tg": "The bot tried roasting itself. Even the bot felt awkward."
+        },
+        {
+          "game": "I'm a bot, and somehow I still saw that coming.",
+          "tg": "Self-roast initiated. Confidence not found."
+        },
+        {
+          "game": "Even I make questionable decisions sometimes.",
+          "tg": "The bot tried roasting itself. Even the bot felt awkward."
+        },
+        {
+          "game": "I'm a bot, and somehow I still saw that coming.",
+          "tg": "Self-roast initiated. Confidence not found."
+        },
+        {
+          "game": "Even I make questionable decisions sometimes.",
+          "tg": "The bot tried roasting itself. Even the bot felt awkward."
+        },
+        {
+          "game": "I'm a bot, and somehow I still saw that coming.",
+          "tg": "Self-roast initiated. Confidence not found."
+        }
+      ]
+    },
+    "ambient_online": {
+      "description": "Random bot remarks while players are online. {player} {count}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "{player} is still alive. Statistically impressive.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "The server is watching, {player}.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "{player}, that was certainly a choice.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "{player} is still alive. Statistically impressive.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "The server is watching, {player}.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "{player}, that was certainly a choice.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "{player} is still alive. Statistically impressive.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "The server is watching, {player}.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "{player}, that was certainly a choice.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "{player} is still alive. Statistically impressive.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "The server is watching, {player}.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "{player}, that was certainly a choice.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "{player} is still alive. Statistically impressive.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "The server is watching, {player}.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "{player}, that was certainly a choice.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "{player} is still alive. Statistically impressive.",
+          "tg": "The server remains active. So do the questionable decisions."
+        },
+        {
+          "game": "The server is watching, {player}.",
+          "tg": "👀 Online check: {count} players. Behave yourselves."
+        },
+        {
+          "game": "{player}, that was certainly a choice.",
+          "tg": "The server remains active. So do the questionable decisions."
+        }
+      ]
+    },
+    "ambient_late": {
+      "description": "Rare mysterious messages sent during late-night hours.",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "It's getting late. The server feels different.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "Something moved... probably.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "The quiet hours have begun.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "It's getting late. The server feels different.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "Something moved... probably.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "The quiet hours have begun.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "It's getting late. The server feels different.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "Something moved... probably.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "The quiet hours have begun.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "It's getting late. The server feels different.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "Something moved... probably.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "The quiet hours have begun.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "It's getting late. The server feels different.",
+          "tg": "A late-night server note: things are unusually quiet."
+        },
+        {
+          "game": "Something moved... probably.",
+          "tg": "The server is still awake. Are you sure you should be?"
+        },
+        {
+          "game": "The quiet hours have begun.",
+          "tg": "A late-night server note: things are unusually quiet."
+        }
+      ]
+    },
+    "ambient_empty": {
+      "description": "Rare Telegram messages sent when the server is empty.",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        },
+        {
+          "game": "No players. The world can rest.",
+          "tg": "The server is empty. Even the blocks can relax for a moment."
+        }
+      ]
+    },
+    "ambient_advancement": {
+      "description": "A mysterious comment after an advancement. {player} {advancement}",
+      "available_value": false,
+      "lines": [
+        {
+          "game": "[{advancement}]... noted, {player}.",
+          "tg": "A quiet note: {player} earned [{advancement}]."
+        },
+        {
+          "game": "An achievement, {player}. We saw that.",
+          "tg": "[{advancement}] has been added to {player}'s record."
+        },
+        {
+          "game": "[{advancement}]... noted, {player}.",
+          "tg": "A quiet note: {player} earned [{advancement}]."
+        },
+        {
+          "game": "An achievement, {player}. We saw that.",
+          "tg": "[{advancement}] has been added to {player}'s record."
+        },
+        {
+          "game": "[{advancement}]... noted, {player}.",
+          "tg": "A quiet note: {player} earned [{advancement}]."
+        },
+        {
+          "game": "An achievement, {player}. We saw that.",
+          "tg": "[{advancement}] has been added to {player}'s record."
+        },
+        {
+          "game": "[{advancement}]... noted, {player}.",
+          "tg": "A quiet note: {player} earned [{advancement}]."
+        },
+        {
+          "game": "An achievement, {player}. We saw that.",
+          "tg": "[{advancement}] has been added to {player}'s record."
+        }
+      ]
+    },
+    "ambient_whisper": {
+      "description": "Rare, eerie messages directed at a player in-game; the Telegram version is different and shorter for the group.",
+      "available_value": true,
+      "lines": [
+        {
+          "game": "{player}... did you hear that?",
+          "tg": "A quiet whisper from the server: something is watching."
+        },
+        {
+          "game": "Don't look behind you, {player}.",
+          "tg": "The server has a message, but it would rather not explain."
+        },
+        {
+          "game": "{player}... did you hear that?",
+          "tg": "A quiet whisper from the server: something is watching."
+        },
+        {
+          "game": "Don't look behind you, {player}.",
+          "tg": "The server has a message, but it would rather not explain."
+        },
+        {
+          "game": "{player}... did you hear that?",
+          "tg": "A quiet whisper from the server: something is watching."
+        },
+        {
+          "game": "Don't look behind you, {player}.",
+          "tg": "The server has a message, but it would rather not explain."
+        }
+      ]
+    }
+  },
+  "next_send_at": 1792680663.3563719,
+  "rescheduled_after_restart_at": 1792679136.3563719
+}
