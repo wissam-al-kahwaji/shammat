@@ -6,20 +6,22 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+# Force working directory to where manager.sh is located (/root/shammat)
+cd "$(dirname "$0")"
+BOT_DIR="$PWD"
 
-# CHMOD all scripts to be executable safely
-chmod +x ./setup_server.sh 2>/dev/null
-chmod +x ./backup.sh 2>/dev/null
-chmod +x ./setup_bot.sh 2>/dev/null
-chmod +x ./restart_bot.sh 2>/dev/null
-chmod +x ./remove_bot.sh 2>/dev/null
-chmod +x ./command.sh 2>/dev/null
+# CHMOD all scripts to be executable safely using absolute paths
+chmod +x "$BOT_DIR/setup_server.sh" 2>/dev/null
+chmod +x "$BOT_DIR/backup.sh" 2>/dev/null
+chmod +x "$BOT_DIR/setup_bot.sh" 2>/dev/null
+chmod +x "$BOT_DIR/restart_bot.sh" 2>/dev/null
+chmod +x "$BOT_DIR/remove_bot.sh" 2>/dev/null
+chmod +x "$BOT_DIR/command.sh" 2>/dev/null
 
 MC_DIR="/root/minecraft"
 BACKUP_DIR="/root/backups"
 CONTAINER_NAME="minecraft-server"
 BOT_SERVICE="shammat.service"
-BOT_DIR="/root/shammat"
 BACKUP_PLAYERS_FILE="$BOT_DIR/backup_players.json"
 
 # Pause utility to return home safely
@@ -156,8 +158,8 @@ server_status() {
             read -p "Select choice [1-2]: " CHOICE
             case $CHOICE in
                 1) 
-                    if [ -f "./setup_server.sh" ]; then
-                        ./setup_server.sh
+                    if [ -f "$BOT_DIR/setup_server.sh" ]; then
+                        "$BOT_DIR/setup_server.sh"
                     else
                         echo "[-] setup_server.sh not found!"
                     fi
@@ -179,7 +181,6 @@ server_status() {
             read -p "Select choice [1-4]: " CHOICE
             case $CHOICE in
                 1) 
-                    # Temporarily allow Ctrl+C to exit log viewing view safely
                     trap - INT
                     docker logs -f "$CONTAINER_NAME"
                     trap '' INT
@@ -221,9 +222,9 @@ backup_manager() {
 
         case $BKP_CHOICE in
             1)
-                if [ -f "./backup.sh" ]; then
+                if [ -f "$BOT_DIR/backup.sh" ]; then
                     echo "[+] Running backup script..."
-                    ./backup.sh --now
+                    "$BOT_DIR/backup.sh" --now
                 else
                     echo "[-] backup.sh not found!"
                 fi
@@ -299,10 +300,9 @@ game_console() {
         return
     fi
 
-    if [ -f "./command.sh" ]; then
-        # Allow temporary Ctrl+C inside the command shell without killing main menu
+    if [ -f "$BOT_DIR/command.sh" ]; then
         trap - INT
-        ./command.sh
+        "$BOT_DIR/command.sh"
         trap '' INT
     else
         echo "[-] command.sh not found!"
@@ -332,9 +332,9 @@ bot_manager() {
             echo "--------------------------------------------------"
             read -p "Select choice [1-4]: " BOT_CHOICE
             case $BOT_CHOICE in
-                1) [ -f "./restart_bot.sh" ] && ./restart_bot.sh ; pause ;;
-                2) [ -f "./setup_bot.sh" ] && ./setup_bot.sh ; pause ;;
-                3) [ -f "./remove_bot.sh" ] && ./remove_bot.sh ; pause ;;
+                1) [ -f "$BOT_DIR/restart_bot.sh" ] && "$BOT_DIR/restart_bot.sh" ; pause ;;
+                2) [ -f "$BOT_DIR/setup_bot.sh" ] && "$BOT_DIR/setup_bot.sh" ; pause ;;
+                3) [ -f "$BOT_DIR/remove_bot.sh" ] && "$BOT_DIR/remove_bot.sh" ; pause ;;
                 4|*) break ;;
             esac
         else
@@ -345,7 +345,7 @@ bot_manager() {
             echo "--------------------------------------------------"
             read -p "Select choice [1-2]: " BOT_CHOICE
             case $BOT_CHOICE in
-                1) [ -f "./setup_bot.sh" ] && ./setup_bot.sh || echo "[-] setup_bot.sh not found!" ; pause ;;
+                1) [ -f "$BOT_DIR/setup_bot.sh" ] && "$BOT_DIR/setup_bot.sh" || echo "[-] setup_bot.sh not found!" ; pause ;;
                 2|*) break ;;
             esac
         fi
@@ -391,8 +391,8 @@ setup_and_maintenance() {
         read -p "Select choice [1-3]: " M_CHOICE
         case $M_CHOICE in
             1) 
-                if [ -f "./setup_server.sh" ]; then
-                    ./setup_server.sh
+                if [ -f "$BOT_DIR/setup_server.sh" ]; then
+                    "$BOT_DIR/setup_server.sh"
                 else
                     echo "[-] setup_server.sh not found!"
                 fi
@@ -400,9 +400,9 @@ setup_and_maintenance() {
                 ;;
             2)
                 if ! check_bot_installed; then
-                    [ -f "./setup_bot.sh" ] && ./setup_bot.sh || echo "[-] setup_bot.sh not found!"
+                    [ -f "$BOT_DIR/setup_bot.sh" ] && "$BOT_DIR/setup_bot.sh" || echo "[-] setup_bot.sh not found!"
                 else
-                    [ -f "./remove_bot.sh" ] && ./remove_bot.sh || echo "[-] remove_bot.sh not found!"
+                    [ -f "$BOT_DIR/remove_bot.sh" ] && "$BOT_DIR/remove_bot.sh" || echo "[-] remove_bot.sh not found!"
                 fi
                 pause
                 ;;
@@ -441,7 +441,6 @@ while true; do
     echo "=================================================="
     read -p "Enter choice or command: " MAIN_CHOICE
 
-    # Check strictly for exit command
     if [[ "$MAIN_CHOICE" == "exit" ]]; then
         echo "[+] Exiting Control Panel. Goodbye!"
         exit 0
