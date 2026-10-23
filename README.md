@@ -2,7 +2,7 @@
 
 **One manager. One VPS. A Docker-powered Minecraft server and an optional Telegram companion bot.**
 
-Shammat is a small server-management project designed to make setting up and managing a Minecraft server less intimidating. Instead of remembering a long list of commands, connect to your VPS, download Shammat into `/root/shammat`, open the interactive **Manager**, and choose what you want to do.
+Shammat is a small server-management project designed to make setting up and managing a Minecraft server less intimidating. Instead of remembering a long list of commands, connect to your VPS, run a single installation command, then type `shammat` to open the interactive **Manager** and choose what you want to do.
 
 **Languages:** [English](#english) · [العربية](#العربية)
 
@@ -36,7 +36,7 @@ It can help you:
 - Install, restart, reconfigure, or remove the Shammat Telegram bot.
 - Manage the Minecraft usernames allowed to request an in-game backup.
 
-You do not need to run each management script manually: launch `manager.sh` and use its menu.
+You do not need to run each management script manually: just type `shammat` and use its menu.
 
 ## 2. Before you start
 
@@ -46,64 +46,58 @@ You need:
 - SSH access and root privileges (or an account allowed to use `sudo`).
 - Enough RAM and disk space for your chosen Minecraft version, players, mods, and world.
 - Access to your VPS provider's firewall/security-group settings so you can allow the Minecraft port.
-- Git installed, or permission to install it.
+- `curl` and `git`. The installer is downloaded with `curl` and fetches the project with `git`; it does not install either of them for you. If one is missing, install both first:
+
+```bash
+sudo apt update
+sudo apt install -y curl git
+```
 
 The included Docker setup script uses Docker's Ubuntu APT repository. Other distributions may require adapting that script.
 
-### If you are logged in as a normal user, how do you become root?
+### Do you need to be root?
 
-If your account has `sudo` permission, run:
+Both the installer and the Manager require root privileges. You do not have to switch to a root shell: if your account has `sudo` permission, just put `sudo` in front of the commands below. (If you prefer a root shell, run `sudo -i` once; `whoami` should then print `root` and you can drop `sudo`.)
 
-```bash
-sudo -i
-```
+If `sudo` says you are not allowed to use it, you cannot grant yourself root access with a command. Sign in using the VPS provider's root account/console, or ask the server administrator to grant the required access. Do not share your root password or SSH private key.
 
-Enter your own account password if prompted. Your terminal should switch to a root shell; `whoami` should print `root`.
+## 3. Install Shammat with one command
 
-If `sudo -i` says you are not allowed to use sudo, you cannot grant yourself root access with a command. Sign in using the VPS provider's root account/console, or ask the server administrator to grant the required access. Do not share your root password or SSH private key.
-
-## 3. Download Shammat from Git into `/root/shammat`
-
-**The download location matters.** Shammat's scripts expect the project at `/root/shammat`, and the Manager's relative script paths work when you launch it from that directory.
-
-First become root as explained above. Then run:
+Run this single command on your VPS:
 
 ```bash
-apt update
-apt install -y git
+sudo curl -sSL https://raw.githubusercontent.com/wissam-al-kahwaji/shammat/main/install.sh | sudo bash
 ```
 
-Clone the repository directly to the required path:
+The installer will:
+
+1. Create `/root/shammat` and download the official Shammat repository (`https://github.com/wissam-al-kahwaji/shammat`) into it.
+2. Make `manager.sh` executable.
+3. Create a global `shammat` command at `/usr/local/bin/shammat`, so you can launch the Manager from any directory.
+
+When it finishes it prints `Installation completed successfully!`. To confirm the command exists:
 
 ```bash
-git clone https://github.com/wissam-al-kahwaji/shammat.git /root/shammat
+command -v shammat
 ```
 
-The official Shammat repository is `https://github.com/wissam-al-kahwaji/shammat`.
+It should print `/usr/local/bin/shammat`.
 
-If `/root/shammat` already exists, do not delete it blindly: it may contain your configuration, bot credentials, or backups. Inspect it and decide whether to update the existing clone or back it up before proceeding.
+**The install location still matters.** Shammat's scripts expect the project at `/root/shammat`. You do not need to `cd` there yourself: the `shammat` command does that for you before starting the Manager.
 
-Now enter the project directory and make the shell scripts executable:
+> **Review before you run:** this command downloads a script from the internet and runs it as root. To read it first, open `https://raw.githubusercontent.com/wissam-al-kahwaji/shammat/main/install.sh` in your browser or run `curl -sSL https://raw.githubusercontent.com/wissam-al-kahwaji/shammat/main/install.sh`.
 
-```bash
-cd /root/shammat
-chmod +x ./*.sh
-```
-
-Check that the main files are present:
-
-```bash
-ls -l /root/shammat/manager.sh /root/shammat/setup_server.sh /root/shammat/shammat.py
-```
+> **Already installed?** The installer removes the existing files inside `/root/shammat` before downloading a fresh copy. If that folder contains configuration, bot credentials, or backups, inspect it and back it up before running the command again.
 
 ## 4. Start the Manager
 
-Run:
+Once installation is complete, simply type:
 
 ```bash
-cd /root/shammat
-./manager.sh
+shammat
 ```
+
+If you are not logged in as root, use `sudo shammat`. You can run it from any directory; it is equivalent to running `cd /root/shammat && ./manager.sh`.
 
 The Manager checks whether the Minecraft server and bot are installed, then displays its control menu. Type the number for the action you want. Type `exit` at the main menu to close the Manager.
 
@@ -215,7 +209,7 @@ The project includes Arabic and English text/response files. During setup, the M
 
 ### Install from the Manager
 
-1. Run `cd /root/shammat && ./manager.sh`.
+1. Run `shammat`.
 2. Choose **4 — Shammat Telegram Bot Manager**, or **5 — Setup & Installation Center**.
 3. Choose the option to install/configure the bot.
 4. Select `ar` for Arabic or `en` for English when prompted.
@@ -271,8 +265,9 @@ In-game commands include `!help`, `!backup`, `!cancel`, `!tg message`, `!roast`,
 
 ## Troubleshooting
 
-- **`Please run this script with root privileges`:** run `sudo -i`, then launch the Manager from `/root/shammat`.
-- **`manager.sh` or a setup script is missing:** check that the repository was cloned completely into `/root/shammat` and that you ran `cd /root/shammat`.
+- **`Please run this script with root privileges`:** run the command with `sudo` (for example `sudo shammat`).
+- **`shammat: command not found`:** the installer did not finish. Run the installation command again and read its output for errors (a missing `git` or `curl` is the most common cause).
+- **`manager.sh` or a setup script is missing:** check that `/root/shammat` exists and contains the project files; if not, run the installation command again (back up any existing configuration first).
 - **Server is not reachable:** check the container/logs, ensure TCP `8080` is allowed at the VPS provider firewall and OS firewall, and connect to `YOUR_VPS_IP:8080`.
 - **Bot does not start:** check `systemctl status shammat` and `journalctl -u shammat -n 100 --no-pager`; verify the token/chat ID and the files under `/root/shammat`.
 - **Bot does not see game events:** confirm the Minecraft container is running and named `minecraft-server`.
@@ -310,7 +305,7 @@ Shammat is licensed under the **MIT License**. You may use, copy, modify, merge,
 - تثبيت بوت شمات على تيليجرام وإعادة تشغيله أو إعادة ضبطه أو إزالة خدمته.
 - إدارة أسماء اللاعبين المسموح لهم بطلب نسخة احتياطية من داخل اللعبة.
 
-كل ما تحتاجه هو تنزيل المشروع في المسار الصحيح وتشغيل `manager.sh`، ثم اتباع القائمة.
+كل ما تحتاجه هو تنفيذ أمر تثبيت واحد، ثم كتابة `shammat` لتشغيل القائمة واتباعها.
 
 ## 2. ما الذي تحتاجه قبل البدء؟
 
@@ -318,70 +313,58 @@ Shammat is licensed under the **MIT License**. You may use, copy, modify, merge,
 - اتصال SSH وصلاحيات root، أو حساب يستطيع استخدام `sudo`.
 - ذاكرة RAM ومساحة تخزين مناسبتان لإصدار ماينكرافت وعدد اللاعبين والإضافات والعالم.
 - إمكانية فتح المنفذ من لوحة مزود الـ VPS ومن جدار الحماية في النظام إن كان مفعّلًا.
-- تثبيت Git، أو صلاحية تثبيته.
+- تثبيت `curl` و`git`. يُنزَّل المثبّت عبر `curl` ويجلب المشروع عبر `git`، ولا يقوم بتثبيت أيٍّ منهما نيابةً عنك. إذا كان أحدهما غير موجود فثبّتهما أولًا:
+
+```bash
+sudo apt update
+sudo apt install -y curl git
+```
 
 سكريبت تثبيت Docker المرفق يستخدم مستودع Docker الخاص بـ Ubuntu؛ وقد يحتاج إلى تعديل إذا كنت تستخدم توزيعة أخرى.
 
-### إذا كنت مستخدمًا عاديًا، كيف تنتقل إلى root؟
+### هل تحتاج إلى صلاحيات root؟
 
-إذا كان حسابك يمتلك صلاحية `sudo`، نفّذ:
-
-```bash
-sudo -i
-```
-
-أدخل كلمة مرور حسابك إذا طُلبت. بعد الانتقال، يمكنك التأكد من الصلاحية بتنفيذ:
-
-```bash
-whoami
-```
-
-يجب أن تكون النتيجة `root`.
+المثبّت والـ Manager كلاهما يتطلبان صلاحيات root. لا حاجة للانتقال إلى جلسة root؛ إذا كان حسابك يمتلك صلاحية `sudo` فيكفي وضع `sudo` قبل الأوامر الموضحة أدناه. (وإن فضّلت جلسة root، نفّذ `sudo -i` مرة واحدة؛ ثم يظهر `root` عند تنفيذ `whoami` ويمكنك حينها حذف `sudo`.)
 
 إذا ظهرت رسالة تفيد بأن حسابك غير مخوّل لاستخدام `sudo`، فلا يمكنك منح نفسك صلاحية root بأمر عادي. استخدم حساب root الذي وفره مزود الخادم أو اطلب من مدير الخادم منحك الصلاحية. لا تشارك كلمة مرور root أو المفتاح الخاص لاتصال SSH.
 
-## 3. تنزيل شمات من Git إلى المسار `/root/shammat`
+## 3. تثبيت شمات بأمر واحد
 
-**هذه الخطوة مهمة جدًا: يجب أن يكون المشروع داخل `/root/shammat`.** تعتمد السكربتات على هذا المسار وعلى تشغيل المدير من مجلد المشروع.
-
-بعد الانتقال إلى root، ثبّت Git:
+نفّذ الأمر التالي على خادم الـ VPS:
 
 ```bash
-apt update
-apt install -y git
+sudo curl -sSL https://raw.githubusercontent.com/wissam-al-kahwaji/shammat/main/install.sh | sudo bash
 ```
 
-ثم نزّل المستودع مباشرة إلى المسار المطلوب:
+يقوم المثبّت بما يلي:
+
+1. إنشاء المجلد `/root/shammat` وتنزيل مستودع شمات الرسمي (`https://github.com/wissam-al-kahwaji/shammat`) إليه.
+2. جعل `manager.sh` قابلًا للتنفيذ.
+3. إنشاء الأمر العام `shammat` في المسار `/usr/local/bin/shammat`، ليمكنك تشغيل المدير من أي مجلد.
+
+عند الانتهاء تظهر الرسالة `Installation completed successfully!`. وللتأكد من وجود الأمر:
 
 ```bash
-git clone https://github.com/wissam-al-kahwaji/shammat.git /root/shammat
+command -v shammat
 ```
 
-الرابط أعلاه هو رابط مستودع شمات الرسمي. إذا كنت قد نزّلت المشروع مسبقًا إلى `/root/shammat`، فلا تنفّذ الأمر مرة أخرى فوق المجلد الموجود؛ اتبع تعليمات تحديث النسخة الحالية أو خذ نسخة احتياطية أولًا.
+يجب أن تكون النتيجة `/usr/local/bin/shammat`.
 
-إذا كان مجلد `/root/shammat` موجودًا مسبقًا، فلا تحذفه مباشرة؛ فقد يحتوي على إعدادات البوت أو بيانات مهمة. افحص محتوياته وخذ نسخة احتياطية قبل استبداله أو تحديثه.
+**مسار التثبيت ما زال مهمًا:** تعتمد سكربتات شمات على وجود المشروع داخل `/root/shammat`. لا تحتاج إلى الانتقال إليه بنفسك، فالأمر `shammat` ينتقل إليه تلقائيًا قبل تشغيل المدير.
 
-بعد اكتمال التنزيل، ادخل إلى مجلد المشروع واجعل السكربتات قابلة للتنفيذ:
+> **راجع السكربت قبل تشغيله:** هذا الأمر يُنزّل سكربتًا من الإنترنت وينفّذه بصلاحيات root. لقراءته أولًا افتح الرابط `https://raw.githubusercontent.com/wissam-al-kahwaji/shammat/main/install.sh` في المتصفح أو نفّذ `curl -sSL https://raw.githubusercontent.com/wissam-al-kahwaji/shammat/main/install.sh`.
 
-```bash
-cd /root/shammat
-chmod +x ./*.sh
-```
-
-وتأكد من وجود الملفات الأساسية:
-
-```bash
-ls -l /root/shammat/manager.sh /root/shammat/setup_server.sh /root/shammat/shammat.py
-```
+> **هل شمات مثبّت مسبقًا؟** يحذف المثبّت الملفات الموجودة داخل `/root/shammat` قبل تنزيل نسخة جديدة. إذا كان المجلد يحتوي على إعدادات أو بيانات البوت أو نسخ مهمة، فافحصه وخذ نسخة احتياطية قبل إعادة تنفيذ الأمر.
 
 ## 4. تشغيل الـ Manager
 
-نفّذ:
+بعد اكتمال التثبيت يكفي أن تكتب:
 
 ```bash
-cd /root/shammat
-./manager.sh
+shammat
 ```
+
+وإذا لم تكن مسجّلًا بصفة root فاكتب `sudo shammat`. يمكنك تنفيذه من أي مجلد، وهو مكافئ لتنفيذ `cd /root/shammat && ./manager.sh`.
 
 ستظهر قائمة التحكم وحالة تثبيت السيرفر والبوت. اكتب رقم الخيار المطلوب واتبع التعليمات التي تظهر على الشاشة. للخروج، اكتب `exit` في القائمة الرئيسية.
 
@@ -497,7 +480,7 @@ flowchart TD
 
 ### تثبيت البوت من خلال Manager
 
-1. شغّل `cd /root/shammat && ./manager.sh`.
+1. شغّل الأمر `shammat`.
 2. اختر **4 — Shammat Telegram Bot Manager** أو **5 — Setup & Installation Center**.
 3. اختر تثبيت البوت وإعداده.
 4. اختر `ar` للعربية أو `en` للإنجليزية عندما يُطلب منك ذلك.
@@ -559,8 +542,9 @@ journalctl -u shammat -f
 
 ## حل المشكلات الشائعة
 
-- **ظهور رسالة `Please run this script with root privileges`:** انتقل إلى root عبر `sudo -i` ثم شغّل المدير من `/root/shammat`.
-- **عدم العثور على `manager.sh` أو أحد السكربتات:** تأكد من تنزيل المستودع كاملًا إلى `/root/shammat` وتنفيذ `cd /root/shammat`.
+- **ظهور رسالة `Please run this script with root privileges`:** شغّل الأمر باستخدام `sudo`، مثل `sudo shammat`.
+- **ظهور `shammat: command not found`:** لم يكتمل التثبيت. أعد تنفيذ أمر التثبيت وراجع مخرجاته بحثًا عن أخطاء (أكثر الأسباب شيوعًا غياب `git` أو `curl`).
+- **عدم العثور على `manager.sh` أو أحد السكربتات:** تأكد من وجود `/root/shammat` وأنه يحتوي على ملفات المشروع؛ وإن لم يكن كذلك فأعد تنفيذ أمر التثبيت (بعد أخذ نسخة احتياطية من أي إعدادات موجودة).
 - **عدم إمكانية الاتصال بالسيرفر:** افحص سجلات الحاوية، وافتح TCP 8080 في جدار الحماية لدى مزود الـ VPS وفي النظام، ثم اتصل عبر `IP-ADDRESS:8080`.
 - **عدم تشغيل البوت:** راجع `systemctl status shammat` و`journalctl -u shammat -n 100 --no-pager` وتحقق من رمز البوت وChat ID والملفات الموجودة داخل `/root/shammat`.
 - **عدم تفاعل البوت مع أحداث اللعبة:** تأكد من تشغيل حاوية ماينكرافت وأن اسمها `minecraft-server`.
