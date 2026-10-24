@@ -17,6 +17,7 @@ chmod +x "$BOT_DIR/setup_bot.sh" 2>/dev/null
 chmod +x "$BOT_DIR/restart_bot.sh" 2>/dev/null
 chmod +x "$BOT_DIR/remove_bot.sh" 2>/dev/null
 chmod +x "$BOT_DIR/command.sh" 2>/dev/null
+chmod +x "$BOT_DIR/setup_docker.sh" 2>/dev/null
 
 MC_DIR="/root/minecraft"
 BACKUP_DIR="/root/backups"
