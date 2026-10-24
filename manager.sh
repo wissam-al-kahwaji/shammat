@@ -181,9 +181,7 @@ server_status() {
             read -p "Select choice [1-4]: " CHOICE
             case $CHOICE in
                 1) 
-                    trap - INT
                     docker logs -f "$CONTAINER_NAME"
-                    trap '' INT
                     pause
                     ;;
                 2) cd "$MC_DIR" && docker compose down && echo "[✓] Server stopped." ; pause ;;
@@ -301,9 +299,7 @@ game_console() {
     fi
 
     if [ -f "$BOT_DIR/command.sh" ]; then
-        trap - INT
         "$BOT_DIR/command.sh"
-        trap '' INT
     else
         echo "[-] command.sh not found!"
     fi
