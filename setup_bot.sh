@@ -112,3 +112,19 @@ echo "[✓] Shammat Bot ($SELECTED_LANG) installed and started successfully!"
 echo "[i] Service name: shammat.service"
 echo "[i] Working directory: $PROJECT_DIR"
 echo "=================================================="
+
+# 6. Schedule Daily Backup at 07:00 AM
+echo "[+] Configuring daily backup cron job..."
+
+BACKUP_SCRIPT="/root/shammat/backup.sh"
+CRON_JOB="0 7 * * * /bin/bash $BACKUP_SCRIPT >> /var/log/backup.log 2>&1"
+
+if [ ! -f "$BACKUP_SCRIPT" ]; then
+    echo "[-] Warning: $BACKUP_SCRIPT not found. Skipping cron setup."
+else
+    chmod +x "$BACKUP_SCRIPT"
+
+    (crontab -l 2>/dev/null | grep -Fv "$BACKUP_SCRIPT"; echo "$CRON_JOB") | crontab -
+
+    echo "[✓] Daily backup scheduled at 07:00 AM."
+fi

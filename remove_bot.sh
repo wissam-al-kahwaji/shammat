@@ -31,13 +31,18 @@ if systemctl list-unit-files | grep -q "${SERVICE_NAME}.service"; then
 else
     echo "[i] Systemd service not found, skipping..."
 fi
-
 # 2. Remove Cron Job for backups
 echo "[+] Removing backup cron job..."
-crontab -l 2>/dev/null | grep -v "${PROJECT_DIR}/backup.sh" | crontab -
-echo "[✓] Cron job removed successfully."
 
-echo "----------------------------------------"
-echo "[✓] Service removed successfully!"
-echo "[i] Note: All your bot files and configurations in ${PROJECT_DIR} remain completely safe and untouched."
-echo "----------------------------------------"
+BACKUP_SCRIPT="/root/shammat/backup.sh"
+CURRENT_CRONTAB="$(crontab -l 2>/dev/null || true)"
+
+if echo "$CURRENT_CRONTAB" | grep -Fq "$BACKUP_SCRIPT"; then
+    printf '%s\n' "$CURRENT_CRONTAB" \
+        | grep -Fv "$BACKUP_SCRIPT" \
+        | crontab -
+
+    echo "[✓] Backup cron job removed successfully."
+else
+    echo "[i] Backup cron job not found, skipping..."
+fi
