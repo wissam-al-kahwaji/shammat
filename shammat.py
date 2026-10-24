@@ -40,8 +40,24 @@ RESYNC_SECONDS = 60            # how often to re-read the online list from the s
 RESUME_MAX_AGE = 600           # resume log reading after restart only if state is newer than this
 RANDOM_AMBIENT_BOOT_AT = time.time()
 LINE = "━━━━━━━━━━━━━━━━━━"
+# A separate state file: do NOT share it with RESPONSES_FILE, which pick_line()
+# may also read/write.
+AMBIENT_STATE_FILE = os.path.join(os.path.dirname(RESPONSES_FILE), "ambient_state.json")
+AMBIENT_MAX_DT = 120            # max seconds counted per tick (restart/downtime safe).
+                                # Raise it if you call the tick less often than every 2 min.
+AMBIENT_MIN_PRESENCE = 3 * 60   # someone must have been online at least this long
+AMBIENT_JOIN_GRACE = 2 * 60     # stay quiet right after anyone joins
+AMBIENT_MIN_GAP = 8 * 60        # minimum gap between two ambient messages
+AMBIENT_QUIET_AFTER_BOT = 90    # stay quiet after any other bot message (death, join...)
+AMBIENT_DAILY_MAX = 12          # hard cap per day
+AMBIENT_TG_CHANCE = 0.24        # chance of ALSO posting to Telegram (only when players are online)
+AMBIENT_RETRY_DELAY = 10 * 60   # wait before retrying if no line could be picked
 # ====================
-
+AMBIENT_SAVE_EVERY = 60         # idle ticks write the state file at most once per minute
+_ambient_last_activity = 0.0
+_ambient_cache = None           # state kept in memory so idle ticks touch no disk
+_ambient_last_save = 0.0
+# ====================
 
 def log(msg):
     print(f"[{datetime.now():%F %T}] {msg}", flush=True)
@@ -81,7 +97,6 @@ countdown_active = False
 cancel_event = threading.Event()
 cancel_by = ""
 
-
 # ---------- json helpers ----------
 def load_json(path, default):
     try:
@@ -96,6 +111,146 @@ def save_json(path, data):
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     os.replace(tmp, path)
+
+
+# ---------------------------------------------------------------------------
+# Fake players
+# ---------------------------------------------------------------------------
+FAKE_PLAYERS_FILE = os.path.join(os.path.dirname(RESPONSES_FILE), "fake_players.json")
+FAKE_PLAYERS_RELOAD_EVERY = 5   # seconds between checks for edits to the file
+ 
+DEFAULT_FAKE_PLAYER_RULES = {
+    "_help": (
+        "A name is fake if it matches ANY rule below (case-insensitive). "
+        "names = exact names; prefixes = start of the name; suffixes = end of the name; "
+        "patterns = regular expressions (in JSON write a backslash twice, e.g. \\d). "
+        "Edits are picked up automatically within a few seconds."
+    ),
+    "names": [],
+    "prefixes": [],
+    "suffixes": [],
+    "patterns": [],
+}
+ 
+_fake_rules = None              # compiled rules currently in use
+_fake_signature = None          # (mtime_ns, size) of the file when it was last read
+_fake_next_check = 0.0
+_fake_lock = threading.Lock()
+ 
+ 
+def _fake_clean_list(value):
+    if isinstance(value, str):          # forgiving: "botmobtrap" instead of ["botmobtrap"]
+        value = [value]
+    if not isinstance(value, list):
+        return []
+    return [x.strip().lower() for x in value if isinstance(x, str) and x.strip()]
+ 
+ 
+def _fake_compile(data):
+    patterns = []
+    raw_patterns = data.get("patterns")
+    if isinstance(raw_patterns, str):
+        raw_patterns = [raw_patterns]
+    for raw in raw_patterns if isinstance(raw_patterns, list) else []:
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        try:
+            patterns.append(re.compile(raw.strip(), re.IGNORECASE))
+        except re.error as e:
+            log(f"[fake-players] ignoring invalid pattern {raw!r}: {e}")
+    return {
+        "names": frozenset(_fake_clean_list(data.get("names"))),
+        "prefixes": tuple(_fake_clean_list(data.get("prefixes"))),
+        "suffixes": tuple(_fake_clean_list(data.get("suffixes"))),
+        "patterns": tuple(patterns),
+    }
+ 
+ 
+def _fake_stat():
+    try:
+        st = os.stat(FAKE_PLAYERS_FILE)
+        return (st.st_mtime_ns, st.st_size)
+    except FileNotFoundError:
+        return None
+ 
+ 
+def reload_fake_players(force=False):
+    """Re-read FAKE_PLAYERS_FILE if it changed (or always when force=True).
+    A broken file never wipes the rules: the previous good rules stay active."""
+    global _fake_rules, _fake_signature
+    signature = _fake_stat()
+    if not force and _fake_rules is not None and signature == _fake_signature:
+        return
+ 
+    if signature is None:
+        # missing file: create it with the defaults so you can simply edit it
+        try:
+            save_json(FAKE_PLAYERS_FILE, DEFAULT_FAKE_PLAYER_RULES)
+            log(f"[fake-players] created {FAKE_PLAYERS_FILE}")
+        except Exception as e:
+            log(f"[fake-players] could not create {FAKE_PLAYERS_FILE}: {e}")
+        data = DEFAULT_FAKE_PLAYER_RULES
+        _fake_signature = _fake_stat()
+    else:
+        data = load_json(FAKE_PLAYERS_FILE, None)
+        _fake_signature = signature            # do not retry a broken file every 5 s
+        if not isinstance(data, dict):
+            log("[fake-players] file is not valid JSON (or not an object) - keeping previous rules")
+            if _fake_rules is None:
+                _fake_rules = _fake_compile(DEFAULT_FAKE_PLAYER_RULES)
+            return
+ 
+    _fake_rules = _fake_compile(data)
+    log("[fake-players] rules loaded: "
+        f"{len(_fake_rules['names'])} names, {len(_fake_rules['prefixes'])} prefixes, "
+        f"{len(_fake_rules['suffixes'])} suffixes, {len(_fake_rules['patterns'])} patterns")
+ 
+ 
+def _fake_current_rules():
+    """Cheap on every call: the file is only checked every few seconds,
+    and a check never blocks another thread."""
+    global _fake_rules, _fake_next_check
+    try:
+        if _fake_rules is None:
+            with _fake_lock:
+                if _fake_rules is None:
+                    reload_fake_players()
+        elif time.monotonic() >= _fake_next_check:
+            if _fake_lock.acquire(blocking=False):
+                try:
+                    _fake_next_check = time.monotonic() + FAKE_PLAYERS_RELOAD_EVERY
+                    reload_fake_players()
+                finally:
+                    _fake_lock.release()
+    except Exception as e:
+        log(f"[fake-players] reload error: {e}")
+        if _fake_rules is None:
+            _fake_rules = _fake_compile(DEFAULT_FAKE_PLAYER_RULES)
+    return _fake_rules
+ 
+ 
+def is_fake_player(name):
+    """True if `name` matches a rule in fake_players.json.
+ 
+    Use it anywhere a player name is handled, for example inside get_online():
+        return {p for p in online if not is_fake_player(p)}
+    or at the top of a join/leave/death handler:
+        if is_fake_player(name):
+            return
+    """
+    if not isinstance(name, str):
+        return False
+    n = name.strip().lower()
+    if not n:
+        return False
+    rules = _fake_current_rules()
+    if n in rules["names"]:
+        return True
+    if rules["prefixes"] and n.startswith(rules["prefixes"]):
+        return True
+    if rules["suffixes"] and n.endswith(rules["suffixes"]):
+        return True
+    return any(p.search(n) for p in rules["patterns"])
 
 
 # ---------- texts (loaded from TEXTS_FILE) ----------
@@ -184,8 +339,12 @@ def get_backup_players():
 def save_state():
     with SAVE_LOCK:
         with ONLINE_LOCK:
-            snap = {"online": sorted(online), "known": sorted(known),
-                    "last_ts": LAST_TS, "saved_at": int(time.time())}
+            snap = {
+                "online": sorted(p for p in online if not is_fake_player(p)),
+                "known": sorted(p for p in known if not is_fake_player(p)),
+                "last_ts": LAST_TS,
+                "saved_at": int(time.time()),
+            }
         try:
             save_json(STATE_FILE, snap)
         except Exception as e:
@@ -246,22 +405,19 @@ def set_online(names):
 
 
 def friends_both_online():
-    for f in list(known):
-        if "fakeplayer" not in f.lower():
-            if "chunkplayer" not in f.lower():
-                if f.lower() not in [x.lower() for x in FRIENDS]:
-                    FRIENDS.append(f.lower())
-    cur = {
-        n.lower()
-        for n in get_online()
-        if "fakeplayer" not in n.lower()
-    }
+    # copy `known` under the lock, then release it BEFORE calling get_online()
+    with ONLINE_LOCK:
+        known_now = list(known)
 
-    return all(
-        f.lower() in cur
-        for f in FRIENDS
-        if "fakeplayer" not in f.lower()
-    )
+    friends_lower = {f.lower() for f in FRIENDS}
+    for name in known_now:
+        if not is_fake_player(name) and name.lower() not in friends_lower:
+            FRIENDS.append(name.lower())
+            friends_lower.add(name.lower())
+
+    online_lower = {n.lower() for n in get_online() if not is_fake_player(n)}
+
+    return all(f in online_lower for f in friends_lower if not is_fake_player(f))
 
 
 # ---------- Telegram ----------
@@ -502,6 +658,7 @@ def fmt_uptime(secs):
     return (f"{d}d " if d else "") + f"{h}h {m}m"
 
 
+
 def text_online():
     names = refresh_online()
     if names is None:
@@ -509,9 +666,18 @@ def text_online():
         note = txt("online.stale_note")
     else:
         note = ""
+
+    # Exclude fake players regardless of the data source
+    if names:
+        names = [n for n in names if not is_fake_player(n)]
+
     if not names:
         return txt("online.empty", note=note)
-    rows = "\n".join(txt("online.row", name=esc(n)) for n in sorted(names))
+
+    rows = "\n".join(
+        txt("online.row", name=esc(n))
+        for n in sorted(names)
+    )
     return txt("online.list", count=len(names), rows=rows, note=note)
 
 def text_deaths():
@@ -717,8 +883,9 @@ def handle_chat_command(player, text):
             game_say(txt("deaths.top_game", list=txt("deaths.top_sep").join(
                 txt("deaths.top_item", name=n, count=c) for n, c in top)), "red")
     elif cmd == "!online":
-        game_say(txt("online.count_game", count=len(get_online())), "green")
-
+        names = [n for n in get_online() if not is_fake_player(n)]
+        game_say(txt("online.count_game", count=len(names)), "green")
+        
 # ---------- log parsing ----------
 # Supports "[time] [Thread/INFO]: msg" and Fabric style "[time] [Thread/INFO] (Minecraft) msg"
 LOG_RE = re.compile(r"^\[[^\]]*\](?: \[[^\]]*\])*:? (?:\([^)]*\) )?(.*)$")
@@ -877,117 +1044,172 @@ def log_loop():
         save_state()
         time.sleep(3)
 
+
+def ambient_note_activity():
+    """Call this from your death / join / leave / advancement / chat handlers.
+    It makes the ambient system stay quiet for a moment so it never talks
+    right on top of another bot message."""
+    global _ambient_last_activity
+    _ambient_last_activity = time.time()
+ 
+ 
+def ambient_random_interval():
+    """Seconds of PLAYER TIME until the next ambient message."""
+    roll = random.random()
+    if roll < 0.42:
+        return random.randint(5 * 60, 15 * 60)
+    if roll < 0.76:
+        return random.randint(15 * 60, 30 * 60)
+    if roll < 0.94:
+        return random.randint(30 * 60, 45 * 60)
+    return random.randint(45 * 60, 75 * 60)
+ 
+ 
+def _ambient_save(state, force=False):
+    global _ambient_last_save
+    now = time.time()
+    if force or now - _ambient_last_save >= AMBIENT_SAVE_EVERY:
+        save_json(AMBIENT_STATE_FILE, state)
+        _ambient_last_save = now
+ 
+ 
+def _ambient_wait(state, reason):
+    """Nothing to send: log WHY (only when the reason changes) and return fast."""
+    changed = state.get("last_block") != reason
+    if changed:
+        state["last_block"] = reason
+        log(f"[ambient] waiting: {reason}")
+    _ambient_save(state, force=changed)
+ 
+ 
 def random_ambient_tick():
     try:
         now = time.time()
-        state = load_json(RESPONSES_FILE, {})
-
-        if not isinstance(state, dict):
-            state = {}
-            
-        def random_interval():
-            roll = random.random()
-            if roll < 0.42:
-                return random.randint(5 * 60, 15 * 60)
-            if roll < 0.76:
-                return random.randint(15 * 60, 30 * 60)
-            if roll < 0.94:
-                return random.randint(30 * 60, 45 * 60)
-            return random.randint(45 * 60, 75 * 60)
-
-        next_send = state.get("next_send_at")
-
-        if not isinstance(next_send, (int, float)):
-            state["next_send_at"] = now + random_interval()
-            save_json(RESPONSES_FILE, state)
-            return
-
-        if next_send <= RANDOM_AMBIENT_BOOT_AT:
-            state["next_send_at"] = now + random_interval()
-            state["rescheduled_after_restart_at"] = now
-            save_json(RESPONSES_FILE, state)
-            return
-
-        if now < next_send:
-            return
-
-        players = list(get_online())
-
-        with ONLINE_LOCK:
-            known_players = list(known)
-
-        hour = datetime.now().hour
-        player = random.choice(players) if players else (
-            random.choice(known_players) if known_players else txt("fallback.friend")
-        )
-
+        global _ambient_cache
+        if _ambient_cache is None:
+            _ambient_cache = load_json(AMBIENT_STATE_FILE, {})
+            if not isinstance(_ambient_cache, dict):
+                _ambient_cache = {}
+        state = _ambient_cache
+ 
+        # --- time accounting: count only short, recent intervals -----------
+        last_tick = state.get("last_tick")
+        dt = now - last_tick if isinstance(last_tick, (int, float)) else 0
+        dt = max(0, min(dt, AMBIENT_MAX_DT))
+        state["last_tick"] = now
+ 
+        if not isinstance(state.get("target"), (int, float)):
+            state["target"] = ambient_random_interval()
+            state["budget"] = 0.0
+        if not isinstance(state.get("budget"), (int, float)):
+            state["budget"] = 0.0
+ 
+        day = datetime.now().strftime("%Y-%m-%d")
+        if state.get("day") != day:
+            state["day"] = day
+            state["sent_today"] = 0
+ 
+        # --- who is online right now ---------------------------------------
+        players = sorted(p for p in get_online() if not is_fake_player(p))
+        previous = set(state.get("players", []))
+        if set(players) - previous:
+            state["last_join_at"] = now
+        state["players"] = players
+ 
         if not players:
-            category = "ambient_empty"
-        elif hour >= 23 or hour < 5:
-            category = (
-                "ambient_late"
-                if random.random() < 0.58
-                else "ambient_online"
-            )
+            # Server empty: the timer is PAUSED (neither grows nor resets).
+            state["present_since"] = None
+            return _ambient_wait(state, "server is empty (timer paused)")
+ 
+        if not isinstance(state.get("present_since"), (int, float)):
+            state["present_since"] = now
+ 
+        state["budget"] += dt
+ 
+        # --- gates: if any is closed we simply wait, nothing is reset ------
+        gates = [
+            (state["budget"] < state["target"], "player-time timer not reached yet"),
+            (now - state["present_since"] < AMBIENT_MIN_PRESENCE, "players arrived very recently"),
+            (now - state.get("last_join_at", 0) < AMBIENT_JOIN_GRACE, "someone just joined"),
+            (now - state.get("last_sent_at", 0) < AMBIENT_MIN_GAP, "minimum gap since last ambient message"),
+            (now - _ambient_last_activity < AMBIENT_QUIET_AFTER_BOT, "the bot just sent another message"),
+            (state.get("sent_today", 0) >= AMBIENT_DAILY_MAX, "daily limit reached"),
+            (now < state.get("retry_at", 0), "retry cooldown after a failed pick"),
+        ]
+        for closed, reason in gates:
+            if closed:
+                return _ambient_wait(state, reason)
+ 
+        # --- choose player and category ------------------------------------
+        others = [p for p in players if p != state.get("last_player")] or players
+        player = random.choice(others)
+ 
+        hour = datetime.now().hour
+        if (hour >= 23 or hour < 5) and random.random() < 0.58:
+            category = "ambient_late"
         else:
             category = "ambient_online"
-
-        result = pick_line(
-            category,
-            player=player,
-            count=len(players),
-            hour=datetime.now().strftime("%H:%M"),
-        )
-
+ 
+        def pick(cat):
+            return pick_line(
+                cat,
+                player=player,
+                count=len(players),
+                hour=datetime.now().strftime("%H:%M"),
+            )
+ 
+        result = pick(category)
+        if not result and category != "ambient_online":
+            category = "ambient_online"
+            result = pick(category)
+ 
         if not result:
-            state["next_send_at"] = now + random_interval()
-            save_json(RESPONSES_FILE, state)
-            return
-
+            state["retry_at"] = now + AMBIENT_RETRY_DELAY
+            log(f"[ambient] no line returned for category '{category}' "
+                f"- check that it exists in the language files")
+            return _ambient_wait(state, "no line available")
+ 
         game_text, tg_text = result
-
-        state["next_send_at"] = now + random_interval()
-        state["last_attempt_at"] = now
+ 
+        # --- commit state BEFORE sending so a crash can never cause spam ----
+        state["budget"] = 0.0
+        state["target"] = ambient_random_interval()
+        state["last_sent_at"] = now
+        state["sent_today"] = state.get("sent_today", 0) + 1
+        state["last_player"] = player
         state["last_category"] = category
-
-        save_json(RESPONSES_FILE, state)
-
-        channels = []
-
-        if players:
-            game_say(game_text, "gray")
-            channels.append("game")
-
-            if random.random() < 0.24:
-                tg_send(tg_text)
-                channels.append("telegram")
-        else:
-            tg_send(tg_text)
+        state["last_block"] = None
+        state.pop("retry_at", None)
+ 
+        channels = ["game"]
+        send_telegram = random.random() < AMBIENT_TG_CHANCE
+        if send_telegram:
             channels.append("telegram")
-
-        sent_at = time.time()
-
+ 
         history = state.get("history", [])
         if not isinstance(history, list):
             history = []
-
         history.append({
-            "timestamp": sent_at,
-            "datetime_utc": datetime.fromtimestamp(
-                sent_at, timezone.utc
-            ).isoformat(),
+            "timestamp": now,
+            "datetime_utc": datetime.fromtimestamp(now, timezone.utc).isoformat(),
             "category": category,
-            "message": game_text if players else tg_text,
+            "player": player,
+            "players_online": len(players),
+            "message": game_text,
             "channels": channels,
         })
-
         state["history"] = history[-100:]
-        state["last_sent_at"] = sent_at
-
-        save_json(RESPONSES_FILE, state)
-
+        _ambient_save(state, force=True)
+ 
+        # --- send ----------------------------------------------------------
+        game_say(game_text, "gray")
+        if send_telegram:
+            tg_send(tg_text)
+        log(f"[ambient] sent ({category}) to {player} via {'+'.join(channels)}")
+ 
     except Exception as e:
         log(f"Random ambient error: {e}")
+ 
 
 def main():
     log(f"Bot starting (container: {CONTAINER}).")
