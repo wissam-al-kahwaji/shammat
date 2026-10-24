@@ -11,6 +11,7 @@ echo "[+] Starting project setup..."
 # 1. Run setup_docker.sh if it exists
 if [ -f "./setup_docker.sh" ]; then
     echo "[+] Running setup_docker.sh..."
+    chmod +x /root/shammat/setup_docker.sh
     ./setup_docker.sh
 else
     echo "[i] setup_docker.sh not found, skipping..."
