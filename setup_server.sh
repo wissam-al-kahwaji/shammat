@@ -22,9 +22,14 @@ echo "[?] Please configure your Minecraft server:"
 echo "----------------------------------------"
 
 # 2. Interactive Questions
-# Server Version
-read -p "Enter Minecraft Version (e.g., 1.21, 1.20.1): " VERSION
-VERSION=${VERSION:-1.21}
+# Server Version (Mandatory Loop)
+VERSION=""
+while [ -z "$VERSION" ]; do
+    read -p "Enter Minecraft Version (e.g., 1.21, 1.20.1,..., 26.3) [Required]: " VERSION
+    if [ -z "$VERSION" ]; then
+        echo "[-] Version cannot be empty. Please enter a version."
+    fi
+done
 
 # Server Type / Edition (Including Forge & NeoForge)
 echo "Select Minecraft Server Type:"
@@ -61,7 +66,16 @@ WORLD_NAME=${WORLD_NAME:-world}
 read -p "Enter World Seed (Leave empty for random seed): " WORLD_SEED
 
 # RAM Allocation
-read -p "Enter RAM allocation for the game (e.g., 2G, 4G, 8G): " MEMORY
+while [ -z "$MEMORY" ]; do
+    read -p "Enter RAM allocation for the game (e.g., 2G, 4G, 8G) [Required]: " MEMORY
+    if [ -z "$MEMORY" ]; then
+        echo "[-] Memory allocation cannot be empty. Please enter a value."
+    fi
+done
+
+# Max Players limit
+read -p "Enter Max Players limit (default: 20): " MAX_PLAYERS
+MAX_PLAYERS=${MAX_PLAYERS:-20}
 
 # Fixed Port
 PORT="8080"
@@ -101,6 +115,7 @@ services:
       MOTD: "$SERVER_NAME"
       LEVEL_NAME: "$WORLD_NAME"
       SEED: "$WORLD_SEED"
+      MAX_PLAYERS: "$MAX_PLAYERS"
     volumes:
       - ./data:/data
 EOF
