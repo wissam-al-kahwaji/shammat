@@ -28,18 +28,18 @@ VERSION=${VERSION:-1.21}
 
 # Server Type / Edition (Including Forge & NeoForge)
 echo "Select Minecraft Server Type:"
-echo "1) FABRIC (Recommended for modern performance mods)"
-echo "2) FORGE (Traditional modded servers)"
-echo "3) NEOFORGE (Modern fork of Forge)"
-echo "4) PAPER (High performance for plugins)"
-echo "5) VANILLA (Official standard)"
+echo "1) VANILLA (Official standard)"
+echo "2) FABRIC (Recommended for modern performance mods)"
+echo "3) FORGE (Traditional modded servers)"
+echo "4) NEOFORGE (Modern fork of Forge)"
+echo "5) PAPER (High performance for plugins)"
 read -p "Enter choice [1-5, default: 1]: " TYPE_CHOICE
 case $TYPE_CHOICE in
-    2) SERVER_TYPE="FORGE" ;;
-    3) SERVER_TYPE="NEOFORGE" ;;
-    4) SERVER_TYPE="PAPER" ;;
-    5) SERVER_TYPE="VANILLA" ;;
-    *) SERVER_TYPE="FABRIC" ;;
+    2) SERVER_TYPE="FABRIC" ;;
+    3) SERVER_TYPE="FORGE" ;;
+    4) SERVER_TYPE="NEOFORGE" ;;
+    5) SERVER_TYPE="PAPER" ;;
+    *) SERVER_TYPE="VANILLA" ;;
 esac
 
 # Cracked or Premium (Online Mode)
