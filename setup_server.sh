@@ -22,12 +22,18 @@ echo "[?] Please configure your Minecraft server:"
 echo "----------------------------------------"
 
 # 2. Interactive Questions
-# Server Version (Mandatory Loop)
+# Server Version (Mandatory Loop - Numbers and Dots Only)
 VERSION=""
-while [ -z "$VERSION" ]; do
-    read -p "Enter Minecraft Version (e.g., 1.21, 1.20.1,..., 26.3) [Required]: " VERSION
+while true; do
+    read -p "Enter Minecraft Version (e.g., 1.21, 1.20.1) [Required]: " VERSION
+    
     if [ -z "$VERSION" ]; then
         echo "[-] Version cannot be empty. Please enter a version."
+    elif [[ ! "$VERSION" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+        echo "[-] Invalid version format! Only numbers and dots are allowed (e.g., 1.21 or 1.20.1)."
+        VERSION=""
+    else
+        break
     fi
 done
 
@@ -47,13 +53,23 @@ case $TYPE_CHOICE in
     *) SERVER_TYPE="VANILLA" ;;
 esac
 
-# Cracked or Premium (Online Mode)
-read -p "Is the server cracked (No-Premium)? [y/N]: " IS_CRACKED
-if [[ "$IS_CRACKED" =~ ^[Yy]$ ]]; then
-    ONLINE_MODE="FALSE"
-else
-    ONLINE_MODE="TRUE"
-fi
+# Cracked or Premium (Online Mode - Forced Valid Input)
+while true; do
+    read -p "Is the server cracked (No-Premium)? [y/n]: " IS_CRACKED
+    case $IS_CRACKED in
+        [Yy] ) 
+            ONLINE_MODE="FALSE"
+            break
+            ;;
+        [Nn] ) 
+            ONLINE_MODE="TRUE"
+            break
+            ;;
+        * ) 
+            echo "[-] Invalid input! Please enter 'y' for Yes or 'n' for No."
+            ;;
+    esac
+done
 
 # Server Name (MOTD)
 read -p "Enter Server Name/MOTD (default: My Minecraft Server): " SERVER_NAME
@@ -65,11 +81,18 @@ WORLD_NAME=${WORLD_NAME:-world}
 
 read -p "Enter World Seed (Leave empty for random seed): " WORLD_SEED
 
-# RAM Allocation
-while [ -z "$MEMORY" ]; do
-    read -p "Enter RAM allocation for the game (e.g., 2G, 4G, 8G) [Required]: " MEMORY
+# RAM Allocation (Mandatory - Must be a number followed by uppercase G)
+MEMORY=""
+while true; do
+    read -p "Enter RAM allocation for the game (e.g., 2G, 4G, 8G, ...) [Required]: " MEMORY
+    
     if [ -z "$MEMORY" ]; then
         echo "[-] Memory allocation cannot be empty. Please enter a value."
+    elif [[ ! "$MEMORY" =~ ^[0-9]+G$ ]]; then
+        echo "[-] Invalid format! You must enter a number followed by an uppercase 'G' (e.g., 2G, 4G)."
+        MEMORY=""
+    else
+        break
     fi
 done
 
