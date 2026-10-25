@@ -14,10 +14,13 @@ echo "Installing shammat to $TARGET_DIR..."
 # Create target directory and get files
 mkdir -p "$TARGET_DIR"
 
+set -e   # stop on any error, so failures aren't reported as success
+
 if [ -f "manager.sh" ]; then
-    cp -r ./* "$TARGET_DIR/"
+    mkdir -p "$TARGET_DIR"
+    cp -a ./. "$TARGET_DIR/"      # includes hidden files
 else
-    rm -rf "$TARGET_DIR"/*
+    rm -rf "$TARGET_DIR"          # removes the directory itself, hidden files included
     git clone "$REPO_URL" "$TARGET_DIR"
 fi
 
