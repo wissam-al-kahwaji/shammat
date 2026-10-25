@@ -9,7 +9,7 @@ fi
 echo "[+] Starting Telegram Bot setup..."
 
 # 1. Dynamic Language Selection from 'language' directory
-LANG_BASE_DIR="./language"
+LANG_BASE_DIR="/root/shammat/language"
 
 if [ ! -d "$LANG_BASE_DIR" ]; then
     echo "[-] Error: Directory '$LANG_BASE_DIR' does not exist!"
