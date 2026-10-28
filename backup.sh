@@ -68,16 +68,13 @@ trap cleanup EXIT
 if [ "$INSTANT" = true ]; then
     log "Instant mode: skipping warning and wait."
     tg_message "🚨 <b>Emergency backup started</b>"$'\n'$'\n'"🖥 Host: $(hostname)"$'\n'"🛑 The server is being STOPPED right now."
-    tg_message " /say Emergency backup started. The server is being STOPPED right now. Please leave the server and save your progress."
 else
     BACKUP_AT=$(date -d "+${WARN_MINUTES} minutes" '+%H:%M')
     log "Sending advance warning. Backup starts at $BACKUP_AT."
     tg_message "⚠️ <b>Minecraft backup scheduled</b>"$'\n'$'\n'"🖥 Host: $(hostname)"$'\n'"🕒 Backup starts in ${WARN_MINUTES} minutes (at ${BACKUP_AT})"$'\n'"🛑 The server will be STOPPED during the backup"$'\n'"👥 Please leave the server and save your progress."
-    tg_message "/say <b>Minecraft backup scheduled</b>"$'\n'$'\n'"🖥 Host: $(hostname)"$'\n'"🕒 Backup starts in ${WARN_MINUTES} minutes (at ${BACKUP_AT})"$'\n'"🛑 The server will be STOPPED during the backup"$'\n'"👥 Please leave the server and save your progress."
 
     log "Waiting ${WARN_MINUTES} minutes..."
     sleep $(( WARN_MINUTES * 60 ))
-    tg_message "/say <b>Backup started after waiting 1 minute</b> - stopping the server now."
     sleep $(( 1 * 60 ))
     tg_message "🛑 <b>Backup started</b> - stopping the server now."
 fi
