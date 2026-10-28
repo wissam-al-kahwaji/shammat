@@ -370,7 +370,7 @@ def load_state():
 
 def get_online():
     with ONLINE_LOCK:
-        return set(online)
+        return {p for p in online if not is_fake_player(p)}
 
 
 def is_known(name):
@@ -1225,7 +1225,6 @@ def main():
     random_ambient_tick()
     tg_send(txt("boot.started"), html_mode=True)
     log_loop()
-
 
 if __name__ == "__main__":
     main()
